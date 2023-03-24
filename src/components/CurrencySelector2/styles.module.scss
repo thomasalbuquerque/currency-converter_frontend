@@ -1,0 +1,46 @@
+@import '../../styles/colors.module.scss';
+
+.select {
+  background: none;
+  border-color: transparent;
+  outline: none;
+  font-size: 16px;
+  height: 40px;
+  padding: 10px;
+  padding-right: 35px;
+  text-align: right;
+  width: fit-content;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+}
+.option {
+  background-color: $darkBlue !important;
+  color: $lightGray !important;
+  border-bottom: none;
+  border-color: $darkBlue !important;
+  &:hover {
+    background-color: $veryDarkBlue !important;
+  }
+}
+.arrow {
+  color: $lightGray;
+  font-size: 14px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.arrow:before {
+  content: '';
+  display: inline-block;
+  border-style: solid;
+  border-width: 0.15625em 0.15625em 0 0;
+  height: 0.5125em;
+  width: 0.5125em;
+  transform: rotate(135deg);
+  vertical-align: center;
+}

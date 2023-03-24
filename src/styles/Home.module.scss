@@ -1,0 +1,85 @@
+@import './colors.module.scss';
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
+.container {
+  width: 34rem;
+  background: linear-gradient(320deg, $veryDarkBlue 10%, $darkBlue),
+    radial-gradient(ellipse at left, $darkBlue, $veryDarkBlue);
+  border-radius: 22px;
+  box-shadow: 0 30px 40px rgba(0, 0, 0, 0.1);
+}
+.loggedStatus {
+  margin: 0.8rem;
+  text-align: right;
+  font-weight: 400;
+  color: $mediumGray;
+  font-size: 12px;
+}
+.appTitle {
+  margin: 0rem;
+  margin-left: 1.6rem;
+  font-size: 1.5rem;
+}
+.inputs {
+  display: flex;
+  width: auto;
+  justify-content: center;
+}
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 50px 30px;
+}
+.valueBox {
+  width: 10rem;
+  /* Works for Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* Works for Firefox */
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+}
+.moneySymbol {
+  background-color: transparent;
+  border-right: none;
+  border-color: $lightBlue transparent $lightBlue $lightBlue;
+  border-width: 2px;
+  color: $lightGray;
+}
+.inputValue {
+  background-color: transparent;
+  border-left: none;
+  border-color: $lightBlue $lightBlue $lightBlue transparent;
+  border-width: 2px;
+  color: $lightGray;
+  text-align: right;
+  &:focus {
+    // border: none;
+    border-color: $lightBlue;
+    color: $lightGray;
+
+    outline: red;
+    box-shadow: none;
+    background-color: transparent;
+  }
+}
+.customSelect {
+  position: relative;
+}
+.switchImage {
+  width: 20px;
+  margin-bottom: 40px;
+}
