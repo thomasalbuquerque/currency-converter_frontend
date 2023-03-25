@@ -7,23 +7,33 @@ import { Container, Form, Input, InputGroup, InputGroupText } from 'reactstrap';
 import { Currency } from '@/services/currencyService';
 interface props {
   currencyList: Currency[];
+  selectedCurrencyIndex: number;
+  onChangeCurrency: any;
 }
 const inter = Inter({ subsets: ['latin'] });
 
-export default function CurrencySelector2({ currencyList }: props) {
+export default function CurrencySelector2({
+  currencyList,
+  selectedCurrencyIndex,
+  onChangeCurrency,
+}: props) {
   return (
     <>
       <section>
-        <select className={styles.select}>
+        <select
+          className={styles.select}
+          onChange={onChangeCurrency}
+          value={currencyList[selectedCurrencyIndex].id}
+        >
           {currencyList?.length === 0 ? (
             <p>
-              <option className={styles.option} value="opcao1">
+              <option className={styles.option} value="EmptyList">
                 Empty Currency List
               </option>
             </p>
           ) : (
-            currencyList?.map((currency) => (
-              <option className={styles.option} value="opcao1">
+            currencyList?.map((currency, index) => (
+              <option key={index} className={styles.option} value={currency.id}>
                 {currency.currencyName}
               </option>
             ))
