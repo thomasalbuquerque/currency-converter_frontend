@@ -1,9 +1,5 @@
 import styles from './styles.module.scss';
-
-import Head from 'next/head';
-import Image from 'next/image';
 import { Inter } from 'next/font/google';
-import { Container, Form, Input, InputGroup, InputGroupText } from 'reactstrap';
 import { Currency } from '@/services/currencyService';
 interface props {
   currencyList: Currency[];
@@ -19,7 +15,7 @@ export default function CurrencySelector2({
 }: props) {
   return (
     <>
-      <section>
+      <div className={styles.customSelect}>
         <select
           className={styles.select}
           onChange={onChangeCurrency}
@@ -40,7 +36,7 @@ export default function CurrencySelector2({
           )}
         </select>
         <span className={styles.arrow}> </span>
-      </section>
+      </div>
     </>
   );
 }

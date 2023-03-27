@@ -1,5 +1,8 @@
 @import '../../styles/colors.module.scss';
 
+.customSelect {
+  position: relative;
+}
 .select {
   background: none;
   border-color: transparent;

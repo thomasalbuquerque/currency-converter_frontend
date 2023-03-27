@@ -1,14 +1,13 @@
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.scss';
-import { Container, Form, Input, InputGroup, InputGroupText } from 'reactstrap';
+import { Container } from 'reactstrap';
 import CurrencySelector2 from '@/components/CurrencySelector2';
 import { useEffect, useState } from 'react';
 import currencyService, { Currency } from '@/services/currencyService';
+import ValueBox from '@/components/ValueBox';
 
 const inter = Inter({ subsets: ['latin'] });
-
-const BASE_URL = 'localhost:3000';
 
 export default function Home() {
   const [currencyList, setCurrencyList] = useState<Currency[]>();
@@ -53,72 +52,40 @@ export default function Home() {
           >
             <p className={styles.loggedStatus}>Not Logged</p>
             <p className={styles.appTitle}>Currency Converter</p>
-            <div className={styles.inputs}>
-              <div className={styles.inputSection}>
-                <InputGroup className={styles.valueBox}>
-                  <InputGroupText className={styles.moneySymbol}>
-                    $
-                  </InputGroupText>
-                  <Input
-                    type="number"
-                    className={`form-control ${styles.inputValue}`}
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                  />
-                </InputGroup>
-                <div className={styles.customSelect}>
-                  <Form id="currencySelectorFrom">
-                    <CurrencySelector2
-                      currencyList={currencyList}
-                      selectedCurrencyIndex={fromCurrencyIndex}
-                      onChangeCurrency={(e: any) => {
-                        const findCurrencyAndReturnIndex =
-                          currencyList.findIndex(
-                            (currency) =>
-                              currency.id === parseFloat(e.target.value)
-                          );
-                        setFromCurrencyIndex(findCurrencyAndReturnIndex);
-                      }}
-                    />
-                  </Form>
-                </div>
+            <section className={styles.inputs}>
+              <div className={styles.inputPair}>
+                <ValueBox />
+                <CurrencySelector2
+                  currencyList={currencyList}
+                  selectedCurrencyIndex={fromCurrencyIndex}
+                  onChangeCurrency={(e: any) => {
+                    const findCurrencyAndReturnIndex = currencyList.findIndex(
+                      (currency) => currency.id === parseFloat(e.target.value)
+                    );
+                    setFromCurrencyIndex(findCurrencyAndReturnIndex);
+                  }}
+                />
               </div>
               <img
                 src="/arrow-left-right-white.svg"
                 className={styles.switchImage}
                 alt=""
               />
-              <div className={styles.inputSection}>
-                <InputGroup className={styles.valueBox}>
-                  <InputGroupText className={styles.moneySymbol}>
-                    $
-                  </InputGroupText>
-                  <Input
-                    type="number"
-                    className={`form-control ${styles.inputValue}`}
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                  />
-                </InputGroup>
+              <div className={styles.inputPair}>
+                <ValueBox />
 
-                <div className={styles.customSelect}>
-                  <Form id="currencySelectorTo">
-                    <CurrencySelector2
-                      currencyList={currencyList}
-                      selectedCurrencyIndex={toCurrencyIndex}
-                      onChangeCurrency={(e: any) => {
-                        const findCurrencyAndReturnIndex =
-                          currencyList.findIndex(
-                            (currency) =>
-                              currency.id === parseFloat(e.target.value)
-                          );
-                        setToCurrencyIndex(findCurrencyAndReturnIndex);
-                      }}
-                    />
-                  </Form>
-                </div>
+                <CurrencySelector2
+                  currencyList={currencyList}
+                  selectedCurrencyIndex={toCurrencyIndex}
+                  onChangeCurrency={(e: any) => {
+                    const findCurrencyAndReturnIndex = currencyList.findIndex(
+                      (currency) => currency.id === parseFloat(e.target.value)
+                    );
+                    setToCurrencyIndex(findCurrencyAndReturnIndex);
+                  }}
+                />
               </div>
-            </div>
+            </section>
           </Container>
         </main>
       </>
