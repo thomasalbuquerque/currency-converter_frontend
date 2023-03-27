@@ -4,7 +4,7 @@ import api from "./api"
 export interface Currency {
   id: number
   currencyName: string
-  ratioPerDOllar: number
+  ratioPerDollar: string
   createdAt: Date
 }
 

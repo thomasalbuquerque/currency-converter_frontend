@@ -2,7 +2,12 @@ import React from 'react';
 import { Input, InputGroup, InputGroupText } from 'reactstrap';
 import styles from './styles.module.scss';
 
-export default function ValueBox() {
+interface props {
+  amount?: number;
+  onChangeAmount: any;
+}
+
+export default function ValueBox({ amount, onChangeAmount }: props) {
   return (
     <>
       <InputGroup className={styles.valueBox}>
@@ -12,6 +17,8 @@ export default function ValueBox() {
           className={`form-control ${styles.inputValue}`}
           aria-label="Username"
           aria-describedby="basic-addon1"
+          value={amount || ''}
+          onChange={onChangeAmount}
         />
       </InputGroup>
     </>

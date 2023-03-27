@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.scss';
 import { Container } from 'reactstrap';
 import CurrencySelector2 from '@/components/CurrencySelector2';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import currencyService, { Currency } from '@/services/currencyService';
 import ValueBox from '@/components/ValueBox';
 
@@ -13,6 +13,12 @@ export default function Home() {
   const [currencyList, setCurrencyList] = useState<Currency[]>();
   const [fromCurrencyIndex, setFromCurrencyIndex] = useState(0);
   const [toCurrencyIndex, setToCurrencyIndex] = useState(1);
+  const [fromCurrencyObject, setFromCurrencyObject] = useState<Currency>();
+  const [toCurrencyObject, setToCurrencyObject] = useState<Currency>();
+  const [amount, setAmount] = useState<number>();
+  const [conversionDirection, setConversionDirection] = useState('right');
+  const [fromAmount, setFromAmount] = useState<number>();
+  const [toAmount, setToAmount] = useState<number>();
 
   const height = '400px';
   const getCurrencies = async function () {
@@ -26,6 +32,56 @@ export default function Home() {
     getCurrencies();
   }, []);
 
+  useEffect(() => {
+    if (currencyList) {
+      setFromCurrencyObject(currencyList[fromCurrencyIndex]);
+      setToCurrencyObject(currencyList[toCurrencyIndex]);
+    }
+  }, [currencyList, fromCurrencyIndex, toCurrencyIndex]);
+
+  function calculateResult(
+    processedAmount: number,
+    numerator: string,
+    denominator: string
+  ) {
+    const factor = parseFloat(numerator) / parseFloat(denominator);
+    const result = processedAmount * factor;
+    const roundedResult = Math.round((result + Number.EPSILON) * 100) / 100;
+    return roundedResult;
+  }
+  useEffect(() => {
+    if (amount && fromCurrencyObject && toCurrencyObject) {
+      if (conversionDirection === 'right') {
+        setFromAmount(amount);
+
+        const result = calculateResult(
+          amount,
+          toCurrencyObject.ratioPerDollar,
+          fromCurrencyObject.ratioPerDollar
+        );
+        setToAmount(result);
+        //
+      } else if (conversionDirection === 'left') {
+        setToAmount(amount);
+        const result = calculateResult(
+          amount,
+          fromCurrencyObject.ratioPerDollar,
+          toCurrencyObject.ratioPerDollar
+        );
+        setToAmount(result);
+        setFromAmount(result);
+      }
+    }
+  }, [amount, fromCurrencyObject, toCurrencyObject]);
+
+  function handleFromAmount(e: ChangeEvent<HTMLInputElement>) {
+    setAmount(parseFloat(e.target.value));
+    setConversionDirection('right');
+  }
+  function handleToAmount(e: ChangeEvent<HTMLInputElement>) {
+    setAmount(parseFloat(e.target.value));
+    setConversionDirection('left');
+  }
   if (!currencyList) {
     return (
       <>
@@ -53,8 +109,11 @@ export default function Home() {
             <p className={styles.loggedStatus}>Not Logged</p>
             <p className={styles.appTitle}>Currency Converter</p>
             <section className={styles.inputs}>
-              <div className={styles.inputPair}>
-                <ValueBox />
+              <div className={styles.inputPair} id="fromPair">
+                <ValueBox
+                  amount={fromAmount}
+                  onChangeAmount={handleFromAmount}
+                />
                 <CurrencySelector2
                   currencyList={currencyList}
                   selectedCurrencyIndex={fromCurrencyIndex}
@@ -71,8 +130,8 @@ export default function Home() {
                 className={styles.switchImage}
                 alt=""
               />
-              <div className={styles.inputPair}>
-                <ValueBox />
+              <div className={styles.inputPair} id="toPair">
+                <ValueBox amount={toAmount} onChangeAmount={handleToAmount} />
 
                 <CurrencySelector2
                   currencyList={currencyList}
