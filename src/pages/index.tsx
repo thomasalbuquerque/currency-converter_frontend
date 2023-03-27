@@ -19,7 +19,6 @@ export default function Home() {
   const [conversionDirection, setConversionDirection] = useState('right');
   const [fromAmount, setFromAmount] = useState<number>();
   const [toAmount, setToAmount] = useState<number>();
-
   const height = '400px';
   const getCurrencies = async function () {
     const res = await currencyService.getCurrencies();
@@ -50,6 +49,10 @@ export default function Home() {
     return roundedResult;
   }
   useEffect(() => {
+    if (amount === 0) {
+      setFromAmount(0);
+      setToAmount(0);
+    }
     if (amount && fromCurrencyObject && toCurrencyObject) {
       if (conversionDirection === 'right') {
         setFromAmount(amount);
@@ -74,11 +77,19 @@ export default function Home() {
   }, [amount, fromCurrencyObject, toCurrencyObject]);
 
   function handleFromAmount(e: ChangeEvent<HTMLInputElement>) {
-    setAmount(parseFloat(e.target.value));
+    if (e.target.value) {
+      setAmount(parseFloat(e.target.value));
+    } else {
+      setAmount(0);
+    }
     setConversionDirection('right');
   }
   function handleToAmount(e: ChangeEvent<HTMLInputElement>) {
-    setAmount(parseFloat(e.target.value));
+    if (e.target.value) {
+      setAmount(parseFloat(e.target.value));
+    } else {
+      setAmount(0);
+    }
     setConversionDirection('left');
   }
   if (!currencyList) {
