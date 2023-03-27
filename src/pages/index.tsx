@@ -68,7 +68,6 @@ export default function Home() {
           fromCurrencyObject.ratioPerDollar,
           toCurrencyObject.ratioPerDollar
         );
-        setToAmount(result);
         setFromAmount(result);
       }
     }
