@@ -3,7 +3,13 @@ import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.scss';
 import { Container } from 'reactstrap';
 import CurrencySelector2 from '@/components/CurrencySelector2';
-import { ChangeEvent, useEffect, useState } from 'react';
+import {
+  ChangeEvent,
+  MouseEventHandler,
+  TouchEvent,
+  useEffect,
+  useState,
+} from 'react';
 import currencyService, { Currency } from '@/services/currencyService';
 import ValueBox from '@/components/ValueBox';
 
@@ -92,6 +98,23 @@ export default function Home() {
     }
     setConversionDirection('left');
   }
+  function handleSwitchInputs() {
+    if (conversionDirection === 'right') {
+      setConversionDirection('left');
+    } else if (conversionDirection === 'left') {
+      setConversionDirection('right');
+    }
+    const auxiFromAmount = fromAmount;
+    const auxiFromCurrencyIndex = fromCurrencyIndex;
+    const auxiToAmount = toAmount;
+    const auxiToCurrencyIndex = toCurrencyIndex;
+
+    setFromAmount(auxiToAmount);
+    setToAmount(auxiFromAmount);
+
+    setFromCurrencyIndex(auxiToCurrencyIndex);
+    setToCurrencyIndex(auxiFromCurrencyIndex);
+  }
   if (!currencyList) {
     return (
       <>
@@ -135,11 +158,14 @@ export default function Home() {
                   }}
                 />
               </div>
-              <img
-                src="/arrow-left-right-white.svg"
-                className={styles.switchImage}
-                alt=""
-              />
+              <div className={styles.switchImageSection}>
+                <img
+                  src="/arrow-left-right-white.svg"
+                  className={styles.switchImage}
+                  alt=""
+                  onClick={handleSwitchInputs}
+                />
+              </div>
               <div className={styles.inputPair} id="toPair">
                 <ValueBox amount={toAmount} onChangeAmount={handleToAmount} />
 

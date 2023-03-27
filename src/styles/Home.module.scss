@@ -38,8 +38,12 @@
   align-items: flex-end;
   margin: 50px 30px;
 }
-
+.switchImageSection {
+  display: flex;
+  align-items: center;
+}
 .switchImage {
   width: 20px;
   margin-bottom: 40px;
+  cursor: pointer;
 }
