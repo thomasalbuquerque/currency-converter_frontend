@@ -3,13 +3,7 @@ import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.scss';
 import { Container } from 'reactstrap';
 import CurrencySelector2 from '@/components/CurrencySelector2';
-import {
-  ChangeEvent,
-  MouseEventHandler,
-  TouchEvent,
-  useEffect,
-  useState,
-} from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import currencyService, { Currency } from '@/services/currencyService';
 import ValueBox from '@/components/ValueBox';
 
@@ -17,15 +11,20 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const [currencyList, setCurrencyList] = useState<Currency[]>();
+
   const [fromCurrencyIndex, setFromCurrencyIndex] = useState(0);
-  const [toCurrencyIndex, setToCurrencyIndex] = useState(1);
   const [fromCurrencyObject, setFromCurrencyObject] = useState<Currency>();
-  const [toCurrencyObject, setToCurrencyObject] = useState<Currency>();
-  const [amount, setAmount] = useState<number>();
-  const [conversionDirection, setConversionDirection] = useState('right');
   const [fromAmount, setFromAmount] = useState<number>();
+
+  const [toCurrencyIndex, setToCurrencyIndex] = useState(1);
+  const [toCurrencyObject, setToCurrencyObject] = useState<Currency>();
   const [toAmount, setToAmount] = useState<number>();
+
+  const [gotAmount, setGotAmount] = useState<number>();
+  const [conversionDirection, setConversionDirection] = useState('right');
+
   const height = '400px';
+
   const getCurrencies = async function () {
     const res = await currencyService.getCurrencies();
     if (res.length > 0) {
@@ -55,46 +54,46 @@ export default function Home() {
     return roundedResult;
   }
   useEffect(() => {
-    if (amount === 0) {
+    if (gotAmount === 0) {
       setFromAmount(0);
       setToAmount(0);
     }
-    if (amount && fromCurrencyObject && toCurrencyObject) {
+    if (gotAmount && fromCurrencyObject && toCurrencyObject) {
       if (conversionDirection === 'right') {
-        setFromAmount(amount);
+        setFromAmount(gotAmount);
 
         const result = calculateResult(
-          amount,
+          gotAmount,
           toCurrencyObject.ratioPerDollar,
           fromCurrencyObject.ratioPerDollar
         );
         setToAmount(result);
         //
       } else if (conversionDirection === 'left') {
-        setToAmount(amount);
+        setToAmount(gotAmount);
         const result = calculateResult(
-          amount,
+          gotAmount,
           fromCurrencyObject.ratioPerDollar,
           toCurrencyObject.ratioPerDollar
         );
         setFromAmount(result);
       }
     }
-  }, [amount, fromCurrencyObject, toCurrencyObject]);
+  }, [gotAmount, fromCurrencyObject, toCurrencyObject]);
 
   function handleFromAmount(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value) {
-      setAmount(parseFloat(e.target.value));
+      setGotAmount(parseFloat(e.target.value));
     } else {
-      setAmount(0);
+      setGotAmount(0);
     }
     setConversionDirection('right');
   }
   function handleToAmount(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value) {
-      setAmount(parseFloat(e.target.value));
+      setGotAmount(parseFloat(e.target.value));
     } else {
-      setAmount(0);
+      setGotAmount(0);
     }
     setConversionDirection('left');
   }
@@ -104,16 +103,16 @@ export default function Home() {
     } else if (conversionDirection === 'left') {
       setConversionDirection('right');
     }
-    const auxiFromAmount = fromAmount;
-    const auxiFromCurrencyIndex = fromCurrencyIndex;
-    const auxiToAmount = toAmount;
-    const auxiToCurrencyIndex = toCurrencyIndex;
+    const tempFromAmount = fromAmount;
+    const tempFromCurrencyIndex = fromCurrencyIndex;
+    const tempToAmount = toAmount;
+    const tempToCurrencyIndex = toCurrencyIndex;
 
-    setFromAmount(auxiToAmount);
-    setToAmount(auxiFromAmount);
+    setFromAmount(tempToAmount);
+    setToAmount(tempFromAmount);
 
-    setFromCurrencyIndex(auxiToCurrencyIndex);
-    setToCurrencyIndex(auxiFromCurrencyIndex);
+    setFromCurrencyIndex(tempToCurrencyIndex);
+    setToCurrencyIndex(tempFromCurrencyIndex);
   }
   if (!currencyList) {
     return (
@@ -168,7 +167,6 @@ export default function Home() {
               </div>
               <div className={styles.inputPair} id="toPair">
                 <ValueBox amount={toAmount} onChangeAmount={handleToAmount} />
-
                 <CurrencySelector2
                   currencyList={currencyList}
                   selectedCurrencyIndex={toCurrencyIndex}
