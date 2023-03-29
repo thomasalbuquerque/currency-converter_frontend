@@ -8,10 +8,13 @@ import currencyService, { Currency } from '@/services/currencyService';
 import ValueBox from '@/components/ValueBox';
 import { useRouter } from 'next/router';
 import ToastComponent from '@/components/common/toast';
+import convertionService from '../services/convertionService';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+  const router = useRouter();
+
   const [currencyList, setCurrencyList] = useState<Currency[]>();
 
   const [fromCurrencyIndex, setFromCurrencyIndex] = useState(0);
@@ -44,17 +47,20 @@ export default function Home() {
     getCurrencies();
   }, []);
 
+  function showToast(color: string, message: string) {
+    setToastColor(color);
+    setToastIsOpen(true);
+    setTimeout(() => {
+      setToastIsOpen(false);
+    }, 1000 * 3);
+    setToastMessage(message);
+  }
   useEffect(() => {
     if (!sessionStorage.getItem('currencyConverter-token')) {
       setIsLogged(false);
     } else {
       setIsLogged(true);
-      setToastColor('bg-success');
-      setToastIsOpen(true);
-      setTimeout(() => {
-        setToastIsOpen(false);
-      }, 1000 * 3);
-      setToastMessage('Successfully Logged In');
+      showToast('bg-success', 'Successfully Logged In');
     }
   }, []);
 
@@ -136,7 +142,77 @@ export default function Home() {
     setFromCurrencyIndex(tempToCurrencyIndex);
     setToCurrencyIndex(tempFromCurrencyIndex);
   }
-  function handleSaveConvertion() {}
+  async function handleSaveConvertion() {
+    if (!isLogged) {
+      // router.push('/login?failed');
+      router.push({
+        pathname: '/login',
+        query: { isLogged: 'false' },
+      });
+    } else {
+      if (fromAmount && toAmount && fromCurrencyObject && toCurrencyObject) {
+        if (conversionDirection === 'right') {
+          const fromCurrencyId = fromCurrencyObject.id;
+          const toCurrencyId = toCurrencyObject.id;
+          const fromCurrencyName = fromCurrencyObject.currencyName;
+          const toCurrencyName = toCurrencyObject.currencyName;
+          const fromCurrencyValue = fromAmount;
+          const toCurrencyValue = toAmount;
+          const fromCurrencyRatio = parseFloat(
+            fromCurrencyObject.ratioPerDollar
+          );
+          const toCurrencyRatio = parseFloat(toCurrencyObject.ratioPerDollar);
+
+          const params = {
+            fromCurrencyId,
+            toCurrencyId,
+            fromCurrencyName,
+            toCurrencyName,
+            fromCurrencyValue,
+            toCurrencyValue,
+            fromCurrencyRatio,
+            toCurrencyRatio,
+          };
+
+          const res = await convertionService.saveConvertion(params);
+          if (res.status === 201) {
+            showToast('bg-success', 'Successfully stored');
+          } else {
+            showToast('bg-danger', res);
+          }
+        } else if (conversionDirection === 'left') {
+          const fromCurrencyId = toCurrencyObject.id;
+          const toCurrencyId = fromCurrencyObject.id;
+          const fromCurrencyName = toCurrencyObject.currencyName;
+          const toCurrencyName = fromCurrencyObject.currencyName;
+          const fromCurrencyValue = toAmount;
+          const toCurrencyValue = fromAmount;
+          const fromCurrencyRatio = parseFloat(toCurrencyObject.ratioPerDollar);
+          const toCurrencyRatio = parseFloat(fromCurrencyObject.ratioPerDollar);
+
+          const params = {
+            fromCurrencyId,
+            toCurrencyId,
+            fromCurrencyName,
+            toCurrencyName,
+            fromCurrencyValue,
+            toCurrencyValue,
+            fromCurrencyRatio,
+            toCurrencyRatio,
+          };
+
+          const res = await convertionService.saveConvertion(params);
+          if (res.status === 201) {
+            showToast('bg-success', 'Successfully stored');
+          } else {
+            showToast('bg-danger', res);
+          }
+        }
+      } else {
+        showToast('bg-danger', 'Please insert values');
+      }
+    }
+  }
   if (!currencyList) {
     return (
       <>

@@ -30,6 +30,15 @@ export default function login() {
       }, 1000 * 3);
       setToastMessage('Successfully Registered');
     }
+    const isLogged = router.query.isLogged;
+    if (isLogged === 'false') {
+      setToastColor('bg-danger');
+      setToastIsOpen(true);
+      setTimeout(() => {
+        setToastIsOpen(false);
+      }, 1000 * 3);
+      setToastMessage('Please login to be able to save convertions');
+    }
   }, [router.query]);
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
@@ -45,8 +54,12 @@ export default function login() {
     }
   };
   const handleReturnToHome = async () => {
-    router.push('/?success=true');
+    router.push('/');
   };
+  const handleGoToRegister = async () => {
+    router.push('/register');
+  };
+
   return (
     <>
       <Head>
@@ -89,7 +102,9 @@ export default function login() {
               <Button className={styles.button} onClick={handleReturnToHome}>
                 Return to Home
               </Button>
-              <Button className={styles.button}>Go to Login</Button>
+              <Button className={styles.button} onClick={handleGoToRegister}>
+                Go to Register
+              </Button>
             </section>
           </div>
         </Container>

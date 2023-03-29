@@ -46,6 +46,9 @@ export default function register() {
   const handleReturnToHome = async () => {
     router.push('/');
   };
+  const handleGoToLogin = async () => {
+    router.push('/login');
+  };
   return (
     <>
       <Head>
@@ -104,7 +107,9 @@ export default function register() {
               <Button className={styles.button} onClick={handleReturnToHome}>
                 Return to Home
               </Button>
-              <Button className={styles.button}>Go to Login</Button>
+              <Button className={styles.button} onClick={handleGoToLogin}>
+                Go to Login
+              </Button>
             </section>
           </div>
         </Container>

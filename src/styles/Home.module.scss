@@ -67,4 +67,16 @@
     color: $mediumGray;
     border-color: $mediumBlue;
   }
+  &:active {
+    background-color: transparent;
+    border: 2px solid $lightBlue;
+    color: $mediumGray;
+    border-color: $mediumBlue;
+  }
+  &:focus {
+    background-color: transparent;
+    border: 2px solid $lightBlue;
+    color: $mediumGray;
+    border-color: $mediumBlue;
+  }
 }
