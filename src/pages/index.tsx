@@ -6,6 +6,8 @@ import CurrencySelector2 from '@/components/CurrencySelector2';
 import { ChangeEvent, useEffect, useState } from 'react';
 import currencyService, { Currency } from '@/services/currencyService';
 import ValueBox from '@/components/ValueBox';
+import { useRouter } from 'next/router';
+import ToastComponent from '@/components/common/toast';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,6 +25,12 @@ export default function Home() {
   const [gotAmount, setGotAmount] = useState<number>();
   const [conversionDirection, setConversionDirection] = useState('right');
 
+  const [isLogged, setIsLogged] = useState(false);
+
+  const [toastColor, setToastColor] = useState('');
+  const [toastIsOpen, setToastIsOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+
   const height = '400px';
 
   const getCurrencies = async function () {
@@ -34,6 +42,20 @@ export default function Home() {
 
   useEffect(() => {
     getCurrencies();
+  }, []);
+
+  useEffect(() => {
+    if (!sessionStorage.getItem('currencyConverter-token')) {
+      setIsLogged(false);
+    } else {
+      setIsLogged(true);
+      setToastColor('bg-success');
+      setToastIsOpen(true);
+      setTimeout(() => {
+        setToastIsOpen(false);
+      }, 1000 * 3);
+      setToastMessage('Successfully Logged In');
+    }
   }, []);
 
   useEffect(() => {
@@ -139,7 +161,11 @@ export default function Home() {
             className={styles.container}
             style={{ height: `${height}` }}
           >
-            <p className={styles.loggedStatus}>Not Logged</p>
+            {isLogged ? (
+              <p className={styles.loggedStatus}>Logged</p>
+            ) : (
+              <p className={styles.loggedStatus}>Not Logged</p>
+            )}
             <p className={styles.appTitle}>Currency Converter</p>
             <div className={styles.pageContent}>
               <section className={styles.inputs}>
@@ -192,6 +218,11 @@ export default function Home() {
               </section>
             </div>
           </Container>
+          <ToastComponent
+            color={toastColor}
+            isOpen={toastIsOpen}
+            message={toastMessage}
+          />
         </main>
       </>
     );

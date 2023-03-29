@@ -1,11 +1,51 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Button, Container, Form, Input } from 'reactstrap';
 import styles from '@/styles/Home.module.scss';
 import registerStyles from '../styles/register.module.scss';
+import ToastComponent from '@/components/common/toast';
+import { useRouter } from 'next/router';
+import authService from '@/services/authService';
 
 export default function register() {
+  const router = useRouter();
+  const [toastIsOpen, setToastIsOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+
   const height = '600px';
+
+  const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const firstName = formData.get('firstName')!.toString();
+    const email = formData.get('email')!.toString();
+    const confirmPassword = formData.get('confirmPassword')!.toString();
+    const password = formData.get('password')!.toString();
+    const params = { firstName, email, password };
+
+    if (password !== confirmPassword) {
+      setToastMessage('Senha e confirmação diferentes.');
+      setToastIsOpen(true);
+      setTimeout(() => {
+        setToastIsOpen(false);
+      }, 1000 * 3);
+      return;
+    }
+    const { data, status } = await authService.register(params);
+
+    if (status === 201) {
+      router.push('/login?success=true');
+    } else {
+      setToastMessage(data.message);
+      setToastIsOpen(true);
+      setTimeout(() => {
+        setToastIsOpen(false);
+      }, 1000 * 3);
+    }
+  };
+  const handleReturnToHome = async () => {
+    router.push('/');
+  };
   return (
     <>
       <Head>
@@ -23,37 +63,56 @@ export default function register() {
           <p className={styles.loggedStatus}>Not Logged</p>
           <p className={styles.appTitle}>Currency Converter</p>
           <div className={styles.pageContent}>
-            <Form className={registerStyles.form}>
+            <Form className={registerStyles.form} onSubmit={handleRegister}>
               <Input
+                id="firstName"
+                name="firstName"
                 type="text"
                 className={registerStyles.input}
                 placeholder="First Name"
+                required
               ></Input>
               <Input
-                type="text"
+                id="email"
+                name="email"
+                type="email"
                 className={registerStyles.input}
                 placeholder="Email"
+                required
               ></Input>
               <Input
-                type="text"
+                id="password"
+                name="password"
+                type="password"
                 className={registerStyles.input}
                 placeholder="Password"
+                required
               ></Input>
               <Input
-                type="text"
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
                 className={registerStyles.input}
                 placeholder="Confirm Password"
+                required
               ></Input>
               <Button type="submit" className={styles.button}>
                 Create Account
               </Button>
             </Form>
             <section className={styles.buttonsSection}>
-              <Button className={styles.button}>Return to Home</Button>
+              <Button className={styles.button} onClick={handleReturnToHome}>
+                Return to Home
+              </Button>
               <Button className={styles.button}>Go to Login</Button>
             </section>
           </div>
         </Container>
+        <ToastComponent
+          color="bg-danger"
+          isOpen={toastIsOpen}
+          message={toastMessage}
+        />
       </main>
     </>
   );
