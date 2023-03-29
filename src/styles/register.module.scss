@@ -1,0 +1,32 @@
+@import './colors.module.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  margin: 3rem 1.8rem 1rem 1.8rem;
+}
+.input {
+  background-color: transparent;
+  border: 2px solid $lightBlue;
+  display: block;
+  color: $lightGray;
+  &::placeholder {
+    color: $mediumGray;
+  }
+  &:focus {
+    background-color: transparent;
+    border: 2px solid $lightBlue;
+    color: $lightGray;
+    box-shadow: none;
+  }
+  &:active {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    border: 2px solid $lightBlue;
+  }
+}

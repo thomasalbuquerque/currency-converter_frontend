@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.scss';
-import { Container } from 'reactstrap';
+import { Button, Container } from 'reactstrap';
 import CurrencySelector2 from '@/components/CurrencySelector2';
 import { ChangeEvent, useEffect, useState } from 'react';
 import currencyService, { Currency } from '@/services/currencyService';
@@ -114,6 +114,7 @@ export default function Home() {
     setFromCurrencyIndex(tempToCurrencyIndex);
     setToCurrencyIndex(tempFromCurrencyIndex);
   }
+  function handleSaveConvertion() {}
   if (!currencyList) {
     return (
       <>
@@ -140,45 +141,56 @@ export default function Home() {
           >
             <p className={styles.loggedStatus}>Not Logged</p>
             <p className={styles.appTitle}>Currency Converter</p>
-            <section className={styles.inputs}>
-              <div className={styles.inputPair} id="fromPair">
-                <ValueBox
-                  amount={fromAmount}
-                  onChangeAmount={handleFromAmount}
-                />
-                <CurrencySelector2
-                  currencyList={currencyList}
-                  selectedCurrencyIndex={fromCurrencyIndex}
-                  onChangeCurrency={(e: any) => {
-                    const findCurrencyAndReturnIndex = currencyList.findIndex(
-                      (currency) => currency.id === parseFloat(e.target.value)
-                    );
-                    setFromCurrencyIndex(findCurrencyAndReturnIndex);
-                  }}
-                />
-              </div>
-              <div className={styles.switchImageSection}>
-                <img
-                  src="/arrow-left-right-white.svg"
-                  className={styles.switchImage}
-                  alt=""
-                  onClick={handleSwitchInputs}
-                />
-              </div>
-              <div className={styles.inputPair} id="toPair">
-                <ValueBox amount={toAmount} onChangeAmount={handleToAmount} />
-                <CurrencySelector2
-                  currencyList={currencyList}
-                  selectedCurrencyIndex={toCurrencyIndex}
-                  onChangeCurrency={(e: any) => {
-                    const findCurrencyAndReturnIndex = currencyList.findIndex(
-                      (currency) => currency.id === parseFloat(e.target.value)
-                    );
-                    setToCurrencyIndex(findCurrencyAndReturnIndex);
-                  }}
-                />
-              </div>
-            </section>
+            <div className={styles.pageContent}>
+              <section className={styles.inputs}>
+                <div className={styles.inputPair} id="fromPair">
+                  <ValueBox
+                    amount={fromAmount}
+                    onChangeAmount={handleFromAmount}
+                  />
+                  <CurrencySelector2
+                    currencyList={currencyList}
+                    selectedCurrencyIndex={fromCurrencyIndex}
+                    onChangeCurrency={(e: any) => {
+                      const findCurrencyAndReturnIndex = currencyList.findIndex(
+                        (currency) => currency.id === parseFloat(e.target.value)
+                      );
+                      setFromCurrencyIndex(findCurrencyAndReturnIndex);
+                    }}
+                  />
+                </div>
+                <div className={styles.switchImageSection}>
+                  <img
+                    src="/arrow-left-right-white.svg"
+                    className={styles.switchImage}
+                    alt=""
+                    onClick={handleSwitchInputs}
+                  />
+                </div>
+                <div className={styles.inputPair} id="toPair">
+                  <ValueBox amount={toAmount} onChangeAmount={handleToAmount} />
+                  <CurrencySelector2
+                    currencyList={currencyList}
+                    selectedCurrencyIndex={toCurrencyIndex}
+                    onChangeCurrency={(e: any) => {
+                      const findCurrencyAndReturnIndex = currencyList.findIndex(
+                        (currency) => currency.id === parseFloat(e.target.value)
+                      );
+                      setToCurrencyIndex(findCurrencyAndReturnIndex);
+                    }}
+                  />
+                </div>
+              </section>
+              <section className={styles.buttonsSection}>
+                <Button
+                  className={styles.button}
+                  onClick={handleSaveConvertion}
+                >
+                  Save Convertion
+                </Button>
+                <Button className={styles.button}>Convertions History</Button>
+              </section>
+            </div>
           </Container>
         </main>
       </>

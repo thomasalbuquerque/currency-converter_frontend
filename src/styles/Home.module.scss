@@ -27,16 +27,21 @@
   margin-left: 1.6rem;
   font-size: 1.5rem;
 }
+.pageContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
 .inputs {
   display: flex;
-  width: auto;
-  justify-content: center;
+  margin-bottom: -1rem;
 }
 .inputPair {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin: 50px 30px;
+  margin: 3rem 1.8rem;
 }
 .switchImageSection {
   display: flex;
@@ -46,4 +51,20 @@
   width: 20px;
   margin-bottom: 40px;
   cursor: pointer;
+}
+.buttonsSection {
+  display: flex;
+  gap: 0.875em;
+}
+.button {
+  min-width: 10rem;
+  border: 2px solid $lightBlue;
+  background-color: transparent;
+  font-size: 0.9rem;
+  &:hover {
+    background-color: transparent;
+    border: 2px solid $lightBlue;
+    color: $mediumGray;
+    border-color: $mediumBlue;
+  }
 }
