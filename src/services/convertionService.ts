@@ -10,9 +10,28 @@ export interface Convertion {
   toCurrencyValue: number;
   fromCurrencyRatio: number;
   toCurrencyRatio: number;
+  createdAt?: Date
 }
 
 const currencyService = {
+  getConvertions: async () => {
+    const token = sessionStorage.getItem('currencyConverter-token');
+    const res: AxiosResponse = await api.get('/convertions',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+
+        return error.response;
+      });
+    console.log(res)
+    const typedRes: Convertion[] = res.data
+    return typedRes
+  },
+
   saveConvertion: async ({
     fromCurrencyId,
     toCurrencyId,
@@ -25,7 +44,7 @@ const currencyService = {
   }: Convertion) => {
     const token = sessionStorage.getItem('currencyConverter-token');
 
-    const res = await api
+    const res: AxiosResponse = await api
       .post(
         `/convertions/`,
         {

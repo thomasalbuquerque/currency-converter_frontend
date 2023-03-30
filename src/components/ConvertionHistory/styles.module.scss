@@ -1,0 +1,49 @@
+@import '../../styles/colors.module.scss';
+.list {
+  width: 25rem;
+}
+.title {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 15px;
+}
+.card {
+  width: 25rem;
+  border: 2px solid $lightBlue;
+  border-radius: 8px;
+}
+.cardContent {
+  padding: 7px 24px;
+}
+.date {
+  text-align: center;
+  font-size: 14px;
+  color: $mediumGray;
+}
+// .convertion {
+//   display: flex;
+//   justify-content: space-between;
+// }
+.arrow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img {
+  width: 20px;
+  height: auto;
+}
+.to {
+  text-align: end;
+}
+.currencyValue {
+  font-size: 14.5px;
+}
+.bases {
+  margin: 0.5rem 0rem 0rem;
+}
+.baseValue {
+  font-size: 14.5px;
+  color: $mediumGray;
+}

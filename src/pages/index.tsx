@@ -9,6 +9,7 @@ import ValueBox from '@/components/ValueBox';
 import { useRouter } from 'next/router';
 import ToastComponent from '@/components/common/toast';
 import convertionService from '../services/convertionService';
+import ConvertionHistory from '@/components/ConvertionHistory';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -109,6 +110,9 @@ export default function Home() {
     }
   }, [gotAmount, fromCurrencyObject, toCurrencyObject]);
 
+  function handleClickOnNotLoggedIn() {
+    router.push('/login');
+  }
   function handleFromAmount(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value) {
       setGotAmount(parseFloat(e.target.value));
@@ -178,7 +182,7 @@ export default function Home() {
           if (res.status === 201) {
             showToast('bg-success', 'Successfully stored');
           } else {
-            showToast('bg-danger', res);
+            showToast('bg-danger', res.statusText);
           }
         } else if (conversionDirection === 'left') {
           const fromCurrencyId = toCurrencyObject.id;
@@ -205,7 +209,7 @@ export default function Home() {
           if (res.status === 201) {
             showToast('bg-success', 'Successfully stored');
           } else {
-            showToast('bg-danger', res);
+            showToast('bg-danger', res.statusText);
           }
         }
       } else {
@@ -233,14 +237,16 @@ export default function Home() {
           />
         </Head>
         <main className={styles.main}>
-          <Container
-            className={styles.container}
-            style={{ height: `${height}` }}
-          >
+          <Container className={styles.container}>
             {isLogged ? (
-              <p className={styles.loggedStatus}>Logged</p>
+              <p className={styles.loggedStatus}>Logged in</p>
             ) : (
-              <p className={styles.loggedStatus}>Not Logged</p>
+              <p
+                className={styles.loggedStatus}
+                onClick={handleClickOnNotLoggedIn}
+              >
+                Not logged in
+              </p>
             )}
             <p className={styles.appTitle}>Currency Converter</p>
             <div className={styles.pageContent}>
@@ -290,7 +296,15 @@ export default function Home() {
                 >
                   Save Convertion
                 </Button>
-                <Button className={styles.button}>Convertions History</Button>
+              </section>
+              <section>
+                {isLogged ? (
+                  <ConvertionHistory />
+                ) : (
+                  <p className={styles.pleaseLogin}>
+                    Please log in to see your Convertion History
+                  </p>
+                )}
               </section>
             </div>
           </Container>
