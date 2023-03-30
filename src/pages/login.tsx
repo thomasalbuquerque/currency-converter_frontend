@@ -16,7 +16,7 @@ export default function login() {
 
   useEffect(() => {
     if (sessionStorage.getItem('currencyConverter-token')) {
-      router.push('/?success=true');
+      router.push('/');
     }
   }, []);
 

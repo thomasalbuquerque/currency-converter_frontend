@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Button, Container, Form, Input } from 'reactstrap';
 import styles from '@/styles/Home.module.scss';
 import registerStyles from '../styles/register.module.scss';
@@ -13,6 +13,12 @@ export default function register() {
   const [toastMessage, setToastMessage] = useState('');
 
   const height = '600px';
+
+  useEffect(() => {
+    if (sessionStorage.getItem('currencyConverter-token')) {
+      router.push('/');
+    }
+  }, []);
 
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

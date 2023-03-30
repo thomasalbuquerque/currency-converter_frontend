@@ -13,7 +13,7 @@ export interface Convertion {
   createdAt?: Date
 }
 
-const currencyService = {
+const convertionService = {
   getConvertions: async () => {
     const token = sessionStorage.getItem('currencyConverter-token');
     const res: AxiosResponse = await api.get('/convertions',
@@ -72,6 +72,23 @@ const currencyService = {
     console.log(res)
     return res;
   },
+  deleteConvertions: async () => {
+    const token = sessionStorage.getItem('currencyConverter-token');
+    const res: AxiosResponse = await api.delete('/convertions',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+
+        return error.response;
+      });
+    console.log('res deleteConvertions')
+    console.log(res)
+    return res
+  },
 };
 
-export default currencyService;
+export default convertionService;

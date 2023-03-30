@@ -1,69 +1,132 @@
 import convertionService, { Convertion } from '@/services/convertionService';
 import React, { useEffect, useState } from 'react';
-import { Col, Row } from 'reactstrap';
+import { Button, Col, Row } from 'reactstrap';
 import styles from './styles.module.scss';
-
-export default function ConvertionHistory() {
+import homeStyles from '../../styles/Home.module.scss';
+interface props {
+  isLogged: boolean;
+  oneNewConvertionSaved: number;
+}
+export default function ConvertionHistory({
+  isLogged,
+  oneNewConvertionSaved,
+}: props) {
   const [convertionList, setConvertionList] = useState<Convertion[]>();
-  const [isLogged, setIsLogged] = useState(false);
+  const [deletedConvertions, setDletedConvertions] = useState(0);
 
-  useEffect(() => {
-    if (!sessionStorage.getItem('currencyConverter-token')) {
-      setIsLogged(false);
-    } else {
-      setIsLogged(true);
-    }
-  }, []);
-
+  function sortArrayPerDate(unsorted: Convertion[]) {
+    const sortedConvertionList = unsorted?.sort(function (a, b) {
+      return (
+        new Date(b.createdAt!).valueOf() - new Date(a.createdAt!).valueOf()
+      );
+    });
+    return sortedConvertionList;
+  }
   async function getConvertions() {
-    const convertionList = await convertionService.getConvertions();
+    const res = await convertionService.getConvertions();
+    console.log(res);
+    const sortedRes = sortArrayPerDate(res);
+    setConvertionList(sortedRes);
+    console.log('convertionList estado');
     console.log(convertionList);
   }
   useEffect(() => {
     if (isLogged) {
       getConvertions();
     }
-  }, [isLogged]);
+  }, [isLogged, oneNewConvertionSaved, deletedConvertions]);
+  function round(n: number) {
+    const roundedResult = Math.round((n + Number.EPSILON) * 100) / 100;
+    return roundedResult;
+  }
+  function formatDate(date: Date) {
+    const stringDate = date.toString();
+    const year = stringDate.slice(0, 4);
+    const month = stringDate.slice(5, 7);
+    const day = stringDate.slice(8, 10);
+    let hours = stringDate.slice(11, 13);
+    const minutes = stringDate.slice(14, 16);
+    let amPm: string;
+    if (parseFloat(hours) >= 13) {
+      hours = (parseFloat(hours) - 12).toString();
+      amPm = 'pm';
+    } else {
+      amPm = 'am';
+    }
+    const localHours = parseFloat(hours) - 3;
+    return `${month}/${day}/${year} at ${localHours}:${minutes} ${amPm}`;
+  }
+  async function handleDelete() {
+    const res = await convertionService.deleteConvertions();
+    console.log('res ConvertionHistory');
+    console.log(res);
+    setDletedConvertions(deletedConvertions + 1);
+  }
   return (
     <>
       <div className={styles.list}>
         <p className={styles.title}>Convertion History</p>
-        <div className={styles.card}>
-          <div className={styles.cardContent}>
-            <div className={styles.date}>05/27/2023 at 2:45 pm</div>
-            <div className={styles.convertion}>
-              <Row>
-                <Col xs="5">
-                  <div className={styles.from}>
-                    <div className={styles.currencyName}>Dollar</div>
-                    <div className={styles.currencyValue}>U$ 2.00</div>
-                  </div>
-                </Col>
-                <Col className={styles.arrow} xs="2">
-                  <img
-                    className={styles.img}
-                    src="./arrow-right-white.png"
-                    alt="arrow right blue"
-                  />
-                </Col>
-                <Col xs="5">
-                  <div className={styles.to}>
-                    <div className={styles.currencyName}>Bitcoin</div>
-                    <div className={styles.currencyValue}>₿ 0.00541484101</div>
-                  </div>
-                </Col>
-              </Row>
-            </div>
-            <div className={styles.bases}>
-              <div className={styles.baseValue}>
-                1 dollar = 0.000487741 bitcoin
+        {convertionList?.map((convertion) => (
+          <div className={styles.card} key={convertion.createdAt!.toString()}>
+            <div className={styles.cardContent}>
+              <div className={styles.date}>
+                {formatDate(convertion.createdAt!)}
               </div>
-              <div className={styles.baseValue}>
-                1 bitcoin = 24,541.21 dollar
+              <div className={styles.convertion}>
+                <Row>
+                  <Col xs="5">
+                    <div className={styles.from}>
+                      <div className={styles.currencyName}>
+                        {convertion.fromCurrencyName}
+                      </div>
+                      <div className={styles.currencyValue}>
+                        {convertion.fromCurrencyValue}
+                      </div>
+                    </div>
+                  </Col>
+                  <Col className={styles.arrow} xs="2">
+                    <img
+                      className={styles.img}
+                      src="./arrow-right-white.png"
+                      alt="arrow right blue"
+                    />
+                  </Col>
+                  <Col xs="5">
+                    <div className={styles.to}>
+                      <div className={styles.currencyName}>
+                        {convertion.toCurrencyName}
+                      </div>
+                      <div className={styles.currencyValue}>
+                        {convertion.toCurrencyValue}
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+              <div className={styles.bases}>
+                <div className={styles.baseValue}>
+                  1 {convertion.fromCurrencyName} ={' '}
+                  {round(
+                    convertion.toCurrencyRatio / convertion.fromCurrencyRatio
+                  )}{' '}
+                  {convertion.toCurrencyName}
+                </div>
+                <div className={styles.baseValue}>
+                  1 {convertion.toCurrencyName} ={' '}
+                  {round(
+                    convertion.fromCurrencyRatio / convertion.toCurrencyRatio
+                  )}{' '}
+                  {convertion.fromCurrencyName}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ))}
+        <section className={homeStyles.buttonsSection}>
+          <Button className={homeStyles.button} onClick={handleDelete}>
+            Delete Convertion History
+          </Button>
+        </section>
       </div>
     </>
   );

@@ -35,6 +35,8 @@ export default function Home() {
   const [toastIsOpen, setToastIsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
+  const [oneNewConvertionSaved, setOneNewConvertionSaved] = useState(0);
+
   const height = '400px';
 
   const getCurrencies = async function () {
@@ -110,8 +112,18 @@ export default function Home() {
     }
   }, [gotAmount, fromCurrencyObject, toCurrencyObject]);
 
+  useEffect(() => {
+    const successLogOut = router.query.successLogOut;
+    if (successLogOut === 'true') {
+      showToast('bg-success', 'Successfully Logged out');
+    }
+  }, [router.query]);
+
   function handleClickOnNotLoggedIn() {
     router.push('/login');
+  }
+  function handleClickOnLoggedIn() {
+    router.push('/logout');
   }
   function handleFromAmount(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value) {
@@ -181,6 +193,7 @@ export default function Home() {
           const res = await convertionService.saveConvertion(params);
           if (res.status === 201) {
             showToast('bg-success', 'Successfully stored');
+            setOneNewConvertionSaved(oneNewConvertionSaved + 1);
           } else {
             showToast('bg-danger', res.statusText);
           }
@@ -208,6 +221,7 @@ export default function Home() {
           const res = await convertionService.saveConvertion(params);
           if (res.status === 201) {
             showToast('bg-success', 'Successfully stored');
+            setOneNewConvertionSaved(oneNewConvertionSaved + 1);
           } else {
             showToast('bg-danger', res.statusText);
           }
@@ -235,11 +249,17 @@ export default function Home() {
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap"
             rel="stylesheet"
           />
+          <script src="https://jsuites.net/v4/jsuites.js"></script>
         </Head>
         <main className={styles.main}>
           <Container className={styles.container}>
             {isLogged ? (
-              <p className={styles.loggedStatus}>Logged in</p>
+              <p
+                className={styles.loggedStatus}
+                onClick={handleClickOnLoggedIn}
+              >
+                Logged in
+              </p>
             ) : (
               <p
                 className={styles.loggedStatus}
@@ -299,7 +319,10 @@ export default function Home() {
               </section>
               <section>
                 {isLogged ? (
-                  <ConvertionHistory />
+                  <ConvertionHistory
+                    oneNewConvertionSaved={oneNewConvertionSaved}
+                    isLogged={isLogged}
+                  />
                 ) : (
                   <p className={styles.pleaseLogin}>
                     Please log in to see your Convertion History

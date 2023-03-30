@@ -1,6 +1,6 @@
 @import '../../styles/colors.module.scss';
 .list {
-  width: 25rem;
+  width: 20rem;
 }
 .title {
   text-align: center;
@@ -8,7 +8,8 @@
   margin-bottom: 15px;
 }
 .card {
-  width: 25rem;
+  width: auto;
+  margin-bottom: 15px;
   border: 2px solid $lightBlue;
   border-radius: 8px;
 }
@@ -42,6 +43,7 @@
 }
 .bases {
   margin: 0.5rem 0rem 0rem;
+  text-align: center;
 }
 .baseValue {
   font-size: 14.5px;
