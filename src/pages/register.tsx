@@ -6,13 +6,14 @@ import registerStyles from '../styles/register.module.scss';
 import ToastComponent from '@/components/common/toast';
 import { useRouter } from 'next/router';
 import authService from '@/services/authService';
+import LoggedStatus from '@/components/LoggedStatus';
 
 export default function register() {
   const router = useRouter();
   const [toastIsOpen, setToastIsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
-  const height = '600px';
+  const height = '570px';
 
   useEffect(() => {
     if (sessionStorage.getItem('currencyConverter-token')) {
@@ -69,10 +70,11 @@ export default function register() {
       </Head>
       <main className={styles.main}>
         <Container className={styles.container} style={{ height: `${height}` }}>
-          <p className={styles.loggedStatus}>Not Logged</p>
+          <LoggedStatus logged={false} />
           <p className={styles.appTitle}>Currency Converter</p>
           <div className={styles.pageContent}>
             <Form className={registerStyles.form} onSubmit={handleRegister}>
+              <p className={styles.appSubTitle}>Register</p>
               <Input
                 id="firstName"
                 name="firstName"

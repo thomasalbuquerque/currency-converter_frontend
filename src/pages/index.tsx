@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import ToastComponent from '@/components/common/toast';
 import convertionService from '../services/convertionService';
 import ConvertionHistory from '@/components/ConvertionHistory';
+import LoggedStatus from '@/components/LoggedStatus';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -119,12 +120,6 @@ export default function Home() {
     }
   }, [router.query]);
 
-  function handleClickOnNotLoggedIn() {
-    router.push('/login');
-  }
-  function handleClickOnLoggedIn() {
-    router.push('/logout');
-  }
   function handleFromAmount(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value) {
       setGotAmount(parseFloat(e.target.value));
@@ -253,21 +248,7 @@ export default function Home() {
         </Head>
         <main className={styles.main}>
           <Container className={styles.container}>
-            {isLogged ? (
-              <p
-                className={styles.loggedStatus}
-                onClick={handleClickOnLoggedIn}
-              >
-                Logged in
-              </p>
-            ) : (
-              <p
-                className={styles.loggedStatus}
-                onClick={handleClickOnNotLoggedIn}
-              >
-                Not logged in
-              </p>
-            )}
+            <LoggedStatus logged={isLogged} />
             <p className={styles.appTitle}>Currency Converter</p>
             <div className={styles.pageContent}>
               <section className={styles.inputs}>

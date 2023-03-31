@@ -1,3 +1,4 @@
+import LoggedStatus from '@/components/LoggedStatus';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -5,7 +6,7 @@ import { Button, Container } from 'reactstrap';
 import styles from '../styles/Home.module.scss';
 
 export default function logout() {
-  const height = '300px';
+  const height = '260px';
 
   const router = useRouter();
   const handleReturnToHome = async () => {
@@ -33,18 +34,18 @@ export default function logout() {
       </Head>
       <main className={styles.main}>
         <Container className={styles.container} style={{ height: `${height}` }}>
-          <p className={styles.loggedStatus}>Logged in</p>
+          <LoggedStatus logged={true} />
           <p className={styles.appTitle}>Currency Converter</p>
           <div className={styles.pageContent}>
             <section
               className={styles.buttonsSection}
-              style={{ marginTop: `50px` }}
+              style={{ marginTop: `28px`, flexDirection: `column` }}
             >
-              <Button className={styles.button} onClick={handleReturnToHome}>
-                Return to Home
-              </Button>
               <Button className={styles.button} onClick={handleLogOut}>
                 Log out
+              </Button>
+              <Button className={styles.button} onClick={handleReturnToHome}>
+                Return to Home
               </Button>
             </section>
           </div>

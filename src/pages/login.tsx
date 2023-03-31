@@ -6,7 +6,8 @@ import { Button, Container, Form, Input } from 'reactstrap';
 import ToastComponent from '@/components/common/toast';
 import { useRouter } from 'next/router';
 import authService from '@/services/authService';
-const height = '600px';
+import LoggedStatus from '@/components/LoggedStatus';
+const height = '450px';
 
 export default function login() {
   const router = useRouter();
@@ -74,10 +75,11 @@ export default function login() {
       </Head>
       <main className={styles.main}>
         <Container className={styles.container} style={{ height: `${height}` }}>
-          <p className={styles.loggedStatus}>Not Logged</p>
+          <LoggedStatus logged={false} />
           <p className={styles.appTitle}>Currency Converter</p>
           <div className={styles.pageContent}>
             <Form className={registerStyles.form} onSubmit={handleLogin}>
+              <p className={styles.appSubTitle}>Login</p>
               <Input
                 id="email"
                 name="email"
