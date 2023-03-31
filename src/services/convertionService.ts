@@ -23,11 +23,9 @@ const convertionService = {
         },
       })
       .catch((error) => {
-        console.log(error.response.data.message);
 
         return error.response;
       });
-    console.log(res)
     const typedRes: Convertion[] = res.data
     return typedRes
   },
@@ -64,12 +62,9 @@ const convertionService = {
         }
       )
       .catch((error) => {
-        console.log(error.response.data.message);
 
         return error.response;
       });
-
-    console.log(res)
     return res;
   },
   deleteConvertions: async () => {
@@ -81,12 +76,8 @@ const convertionService = {
         },
       })
       .catch((error) => {
-        console.log(error.response.data.message);
-
         return error.response;
       });
-    console.log('res deleteConvertions')
-    console.log(res)
     return res
   },
 };

@@ -24,11 +24,8 @@ export default function ConvertionHistory({
   }
   async function getConvertions() {
     const res = await convertionService.getConvertions();
-    console.log(res);
     const sortedRes = sortArrayPerDate(res);
     setConvertionList(sortedRes);
-    console.log('convertionList estado');
-    console.log(convertionList);
   }
   useEffect(() => {
     if (isLogged) {
@@ -63,8 +60,6 @@ export default function ConvertionHistory({
   }
   async function handleDelete() {
     const res = await convertionService.deleteConvertions();
-    console.log('res ConvertionHistory');
-    console.log(res);
     setDletedConvertions(deletedConvertions + 1);
   }
   return (
