@@ -9,7 +9,7 @@ import authService from '@/services/authService';
 import LoggedStatus from '@/components/LoggedStatus';
 const height = '450px';
 
-export default function login() {
+export default function Login() {
   const router = useRouter();
   const [toastColor, setToastColor] = useState('');
   const [toastIsOpen, setToastIsOpen] = useState(false);

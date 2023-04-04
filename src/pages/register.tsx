@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import authService from '@/services/authService';
 import LoggedStatus from '@/components/LoggedStatus';
 
-export default function register() {
+export default function Register() {
   const router = useRouter();
   const [toastIsOpen, setToastIsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');

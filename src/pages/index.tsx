@@ -11,6 +11,7 @@ import ToastComponent from '@/components/common/toast';
 import convertionService from '../services/convertionService';
 import ConvertionHistory from '@/components/ConvertionHistory';
 import LoggedStatus from '@/components/LoggedStatus';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -244,8 +245,8 @@ export default function Home() {
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap"
             rel="stylesheet"
           />
-          <script src="https://jsuites.net/v4/jsuites.js"></script>
         </Head>
+        <Script src="https://jsuites.net/v4/jsuites.js"></Script>
         <main className={styles.main}>
           <Container className={styles.container}>
             <LoggedStatus logged={isLogged} />

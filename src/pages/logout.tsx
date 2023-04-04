@@ -5,7 +5,7 @@ import React from 'react';
 import { Button, Container } from 'reactstrap';
 import styles from '../styles/Home.module.scss';
 
-export default function logout() {
+export default function Logout() {
   const height = '260px';
 
   const router = useRouter();
