@@ -42,14 +42,15 @@ export default function Home() {
   const height = '400px';
 
   const getCurrencies = async function () {
-    const res = await currencyService.getCurrencies();
+    const res = await currencyService.getCurrenciesExternal();
     if (res.length > 0) {
       setCurrencyList(res);
     }
   };
-
   useEffect(() => {
-    getCurrencies();
+    if (typeof window !== 'undefined') {
+      getCurrencies();
+    }
   }, []);
 
   function showToast(color: string, message: string) {
@@ -294,8 +295,7 @@ export default function Home() {
               <section className={styles.buttonsSection}>
                 <Button
                   className={styles.button}
-                  onClick={handleSaveConvertion}
-                >
+                  onClick={handleSaveConvertion}>
                   Save Convertion
                 </Button>
               </section>

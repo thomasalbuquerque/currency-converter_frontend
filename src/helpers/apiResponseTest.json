@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "last_updated_at": "2023-06-03T23:59:59Z"
+  },
+  "data": {
+    "AED": {
+      "code": "AED",
+      "value": 3.672906
+    },
+    "AFN": {
+      "code": "AFN",
+      "value": 87.512369
+    },
+    "BAM": {
+      "code": "BAM",
+      "value": 1.823338
+    },
+    "BBD": {
+      "code": "BBD",
+      "value": 2.02676
+    },
+    "BDT": {
+      "code": "BDT",
+      "value": 107.686732
+    },
+    "CAD": {
+      "code": "CAD",
+      "value": 1.342532
+    },
+    "EUR": {
+      "code": "EUR",
+      "value": 0.932351
+    },
+    "USD": {
+      "code": "USD",
+      "value": 1
+    }
+  }
+}
