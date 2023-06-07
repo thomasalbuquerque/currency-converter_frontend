@@ -32,8 +32,8 @@ async function fetchCurrencyList() {
 
 function setCookie(name: string, value: string, days: number) {
   const expirationDate = new Date()
-  // expirationDate.setTime(expirationDate.getTime() + days * 24 * 60 * 60 * 1000)
-  expirationDate.setTime(expirationDate.getTime() + 25000) //test code for 25 seconds cookie expiration time
+  expirationDate.setTime(expirationDate.getTime() + days * 24 * 60 * 60 * 1000)
+  // expirationDate.setTime(expirationDate.getTime() + 25000) //test code for 25 seconds cookie expiration time
   const expires = "expires=" + expirationDate.toUTCString()
   document.cookie = name + "=" + value + ";" + expires + ";path=/"
 }
