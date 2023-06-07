@@ -25,14 +25,15 @@ function processCurrencyList(currencyList: any) {
 }
 
 async function fetchCurrencyList() {
-  const response = await CurrencyAPI()  //fetchTestApi()
+  const response = await CurrencyAPI() // fetchTestApi()
   const currencyList = processCurrencyList(response)
   return currencyList
 }
 
 function setCookie(name: string, value: string, days: number) {
   const expirationDate = new Date()
-  expirationDate.setTime(expirationDate.getTime() + days * 24 * 60 * 60 * 1000)
+  // expirationDate.setTime(expirationDate.getTime() + days * 24 * 60 * 60 * 1000)
+  expirationDate.setTime(expirationDate.getTime() + 25000) //test code for 25 seconds cookie expiration time
   const expires = "expires=" + expirationDate.toUTCString()
   document.cookie = name + "=" + value + ";" + expires + ";path=/"
 }
@@ -52,25 +53,14 @@ function getCookie(name: string) {
 const currencyService = {
   getCurrenciesExternal: async function () {
     const stored_stringFormat = getCookie('storedCurrencyList')
-    const today = new Date().toLocaleDateString()
 
     if (stored_stringFormat) {
       const stored: { currencyList: Currency[]; dateString: string } = JSON.parse(stored_stringFormat)
-      if (stored.dateString !== today) {
-        try {
-          const currencyList = await fetchCurrencyList()
-          setCookie('storedCurrencyList', JSON.stringify({ currencyList, dateString: today }), 1)
-          return currencyList
-        } catch (error) {
-          return []
-        }
-      } else {
-        return stored.currencyList
-      }
+      return stored.currencyList
     } else {
       try {
         const currencyList = await fetchCurrencyList()
-        setCookie('storedCurrencyList', JSON.stringify({ currencyList, dateString: today }), 1)
+        setCookie('storedCurrencyList', JSON.stringify({ currencyList, dateString: new Date().toLocaleDateString() }), 1)
         return currencyList
       } catch (error) {
         return []
