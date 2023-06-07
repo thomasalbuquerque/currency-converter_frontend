@@ -36,15 +36,15 @@ const currencyService = {
   getCurrenciesExternal: async function () {
 
     const stored_stringFormat = localStorage.getItem('storedCurrencyList');
+    const today = new Date().toLocaleDateString();
 
     if (stored_stringFormat) {
       const stored: { currencyList: Currency[], dateString: string } = JSON.parse(stored_stringFormat);
-      const today = new Date().toLocaleDateString();
       if (stored.dateString !== today) {
         try {
           const currencyList = await fetchCurrencyList()
           setLocalStore(currencyList, today)
-          return (currencyList)
+          return currencyList
         } catch (error) {
           return [];
         }
@@ -54,7 +54,7 @@ const currencyService = {
     } else {
       try {
         const currencyList = await fetchCurrencyList()
-        setLocalStore(currencyList, new Date().toLocaleDateString())
+        setLocalStore(currencyList, today)
         return currencyList;
       } catch (error) {
         return [];
