@@ -85,3 +85,58 @@
   color: $mediumGray;
   margin-top: 40px;
 }
+@media (max-width: 810px) {
+  .container {
+    width: 24rem;
+  }
+  .button {
+    min-width: 7rem;
+  }
+}
+@media (max-width: 640px) {
+  .main {
+    padding: 6rem 2rem;
+  }
+  .container {
+    width: 20rem;
+  }
+  .inputPair {
+    margin: 3rem 1rem;
+  }
+}
+@media (max-width: 420px) {
+  .container {
+    width: 15rem;
+  }
+  .appTitle {
+    margin-top: 2rem;
+    margin-left: 0rem;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+  .inputs {
+    flex-direction: column;
+    align-items: center;
+  }
+  .inputPair {
+    margin: 0rem;
+  }
+  #fromPair {
+    margin: 3rem 0rem 1rem;
+  }
+  #toPair {
+    margin: 1.6rem 0rem 3rem;
+  }
+  .switchImage {
+    margin-bottom: 0px;
+  }
+  .pleaseLogin {
+    width: 150px;
+    text-align: center;
+  }
+}
+@media (max-width: 335px) {
+  .main {
+    padding: 6rem 0rem;
+  }
+}
