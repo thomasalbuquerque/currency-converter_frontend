@@ -54,3 +54,13 @@
   font-size: 14.5px;
   color: $mediumGray;
 }
+@media (max-width: 640px) {
+  .list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .card {
+    width: 75%;
+  }
+}
