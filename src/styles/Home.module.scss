@@ -120,6 +120,7 @@
   }
   .inputPair {
     margin: 0rem;
+    flex-direction: row-reverse;
   }
   #fromPair {
     margin: 3rem 0rem 1rem;
@@ -129,6 +130,7 @@
   }
   .switchImage {
     margin-bottom: 0px;
+    margin-left: 80px;
   }
   .pleaseLogin {
     width: 150px;
