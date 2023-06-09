@@ -254,7 +254,7 @@ export default function Home() {
             <p className={styles.appTitle}>Currency Converter</p>
             <div className={styles.pageContent}>
               <section className={styles.inputs}>
-                <div className={styles.inputPair} id="fromPair">
+                <div className={styles.inputPair} id={styles.fromPair}>
                   <ValueBox
                     amount={fromAmount}
                     onChangeAmount={handleFromAmount}
@@ -278,7 +278,7 @@ export default function Home() {
                     onClick={handleSwitchInputs}
                   />
                 </div>
-                <div className={styles.inputPair} id="toPair">
+                <div className={styles.inputPair} id={styles.toPair}>
                   <ValueBox amount={toAmount} onChangeAmount={handleToAmount} />
                   <CurrencySelector2
                     currencyList={currencyList}

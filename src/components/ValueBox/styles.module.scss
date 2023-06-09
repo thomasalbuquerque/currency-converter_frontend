@@ -38,3 +38,15 @@
     background-color: transparent;
   }
 }
+@media (max-width: 810px) {
+  .valueBox {
+    width: 7rem;
+  }
+  .inputValue {
+    padding: 0.275rem 0.3rem;
+  }
+  .moneySymbol {
+    padding: 0.275rem 0.1rem 0.275rem 0.3rem;
+    color: $lightBlue;
+  }
+}
