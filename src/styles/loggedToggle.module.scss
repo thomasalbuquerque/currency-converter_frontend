@@ -13,7 +13,7 @@
   text-align: right;
   font-weight: 400;
   color: $mediumGray;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   border: 1px solid $mediumGray;
   border-radius: 5px;
   cursor: pointer;
@@ -25,7 +25,7 @@
 }
 @media (max-width: 420px) {
   .loggedToggleStatus {
-    font-size: 0.5rem;
+    font-size: 0.6rem;
     padding: 1px 7px;
   }
 }
