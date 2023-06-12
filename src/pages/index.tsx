@@ -10,8 +10,9 @@ import { useRouter } from 'next/router';
 import ToastComponent from '@/components/common/toast';
 import convertionService from '../services/convertionService';
 import ConvertionHistory from '@/components/ConvertionHistory';
-import LoggedStatus from '@/components/LoggedStatus';
 import Script from 'next/script';
+import { Translation } from '@/helpers/translation';
+import ItemsOnTop from '@/components/ItemsOnTop';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,6 +39,11 @@ export default function Home() {
   const [toastMessage, setToastMessage] = useState('');
 
   const [oneNewConvertionSaved, setOneNewConvertionSaved] = useState(0);
+
+  const { locale } = router;
+  const [localeTransitionIndex, setLocaleTransitionIndex] = useState(
+    locale == 'pt-BR' ? 'ptBR' : 'enUS'
+  );
 
   const height = '400px';
 
@@ -228,6 +234,23 @@ export default function Home() {
       }
     }
   }
+  const handleToggleLocale = () => {
+    const { pathname, asPath, query } = router;
+    switch (locale) {
+      case 'pt-BR':
+        router.push({ pathname, query }, asPath, { locale: 'en-US' });
+        setLocaleTransitionIndex('enUS');
+        break;
+      case 'en-US':
+        router.push({ pathname, query }, asPath, { locale: 'pt-BR' });
+        setLocaleTransitionIndex('ptBR');
+        break;
+    }
+  };
+  // const handleClick = useCallback(() => {
+  //   handleToggleLocale(router, locale!);
+  // }, [router, locale]);
+
   if (!currencyList) {
     return (
       <>
@@ -250,7 +273,11 @@ export default function Home() {
         <Script src="https://jsuites.net/v4/jsuites.js"></Script>
         <main className={styles.main}>
           <Container className={styles.container}>
-            <LoggedStatus logged={isLogged} />
+            <ItemsOnTop
+              handleToggleLocale={handleToggleLocale}
+              localeTransitionIndex={localeTransitionIndex}
+              logged={isLogged}
+            />
             <p className={styles.appTitle}>Currency Converter</p>
             <div className={styles.pageContent}>
               <section className={styles.inputs}>
@@ -296,7 +323,7 @@ export default function Home() {
                 <Button
                   className={styles.button}
                   onClick={handleSaveConvertion}>
-                  Save Convertion
+                  {Translation[localeTransitionIndex].saveConversion}
                 </Button>
               </section>
               <section>
@@ -307,7 +334,7 @@ export default function Home() {
                   />
                 ) : (
                   <p className={styles.pleaseLogin}>
-                    Please log in to see your Convertion History
+                    {Translation[localeTransitionIndex].pleaseLogin}
                   </p>
                 )}
               </section>

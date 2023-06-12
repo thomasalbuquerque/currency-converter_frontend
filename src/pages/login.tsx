@@ -6,7 +6,8 @@ import { Button, Container, Form, Input } from 'reactstrap';
 import ToastComponent from '@/components/common/toast';
 import { useRouter } from 'next/router';
 import authService from '@/services/authService';
-import LoggedStatus from '@/components/LoggedStatus';
+import { Translation } from '@/helpers/translation';
+import ItemsOnTop from '@/components/ItemsOnTop';
 const height = '450px';
 
 export default function Login() {
@@ -14,6 +15,11 @@ export default function Login() {
   const [toastColor, setToastColor] = useState('');
   const [toastIsOpen, setToastIsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+
+  const { locale } = router;
+  const [localeTransitionIndex, setLocaleTransitionIndex] = useState(
+    locale == 'pt-BR' ? 'ptBR' : 'enUS'
+  );
 
   useEffect(() => {
     if (sessionStorage.getItem('currencyConverter-token')) {
@@ -60,6 +66,19 @@ export default function Login() {
   const handleGoToRegister = async () => {
     router.push('/register');
   };
+  const handleToggleLocale = () => {
+    const { pathname, asPath, query } = router;
+    switch (locale) {
+      case 'pt-BR':
+        router.push({ pathname, query }, asPath, { locale: 'en-US' });
+        setLocaleTransitionIndex('enUS');
+        break;
+      case 'en-US':
+        router.push({ pathname, query }, asPath, { locale: 'pt-BR' });
+        setLocaleTransitionIndex('ptBR');
+        break;
+    }
+  };
 
   return (
     <>
@@ -75,7 +94,11 @@ export default function Login() {
       </Head>
       <main className={styles.main}>
         <Container className={styles.container} style={{ height: `${height}` }}>
-          <LoggedStatus logged={false} />
+          <ItemsOnTop
+            handleToggleLocale={handleToggleLocale}
+            localeTransitionIndex={localeTransitionIndex}
+            logged={false}
+          />
           <p className={styles.appTitle}>Currency Converter</p>
           <div className={styles.pageContent}>
             <Form className={registerStyles.form} onSubmit={handleLogin}>
@@ -86,26 +109,24 @@ export default function Login() {
                 type="email"
                 className={registerStyles.input}
                 placeholder="Email"
-                required
-              ></Input>
+                required></Input>
               <Input
                 id="password"
                 name="password"
                 type="password"
                 className={registerStyles.input}
-                placeholder="Password"
-                required
-              ></Input>
+                placeholder={Translation[localeTransitionIndex].password}
+                required></Input>
               <Button type="submit" className={styles.button}>
-                Login
+                {Translation[localeTransitionIndex].login}
               </Button>
             </Form>
             <section className={styles.buttonsSection}>
               <Button className={styles.button} onClick={handleReturnToHome}>
-                Return to Home
+                {Translation[localeTransitionIndex].returnToHome}
               </Button>
               <Button className={styles.button} onClick={handleGoToRegister}>
-                Go to Register
+                {Translation[localeTransitionIndex].goToRegister}
               </Button>
             </section>
           </div>

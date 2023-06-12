@@ -30,3 +30,8 @@
     border: 2px solid $lightBlue;
   }
 }
+@media (max-width: 420px) {
+  .input {
+    font-size: 0.8rem;
+  }
+}

@@ -6,12 +6,18 @@ import registerStyles from '../styles/register.module.scss';
 import ToastComponent from '@/components/common/toast';
 import { useRouter } from 'next/router';
 import authService from '@/services/authService';
-import LoggedStatus from '@/components/LoggedStatus';
+import { Translation } from '@/helpers/translation';
+import ItemsOnTop from '@/components/ItemsOnTop';
 
 export default function Register() {
   const router = useRouter();
   const [toastIsOpen, setToastIsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+
+  const { locale } = router;
+  const [localeTransitionIndex, setLocaleTransitionIndex] = useState(
+    locale == 'pt-BR' ? 'ptBR' : 'enUS'
+  );
 
   const height = '570px';
 
@@ -56,6 +62,19 @@ export default function Register() {
   const handleGoToLogin = async () => {
     router.push('/login');
   };
+  const handleToggleLocale = () => {
+    const { pathname, asPath, query } = router;
+    switch (locale) {
+      case 'pt-BR':
+        router.push({ pathname, query }, asPath, { locale: 'en-US' });
+        setLocaleTransitionIndex('enUS');
+        break;
+      case 'en-US':
+        router.push({ pathname, query }, asPath, { locale: 'pt-BR' });
+        setLocaleTransitionIndex('ptBR');
+        break;
+    }
+  };
   return (
     <>
       <Head>
@@ -70,53 +89,55 @@ export default function Register() {
       </Head>
       <main className={styles.main}>
         <Container className={styles.container} style={{ height: `${height}` }}>
-          <LoggedStatus logged={false} />
+          <ItemsOnTop
+            handleToggleLocale={handleToggleLocale}
+            localeTransitionIndex={localeTransitionIndex}
+            logged={false}
+          />
           <p className={styles.appTitle}>Currency Converter</p>
           <div className={styles.pageContent}>
             <Form className={registerStyles.form} onSubmit={handleRegister}>
-              <p className={styles.appSubTitle}>Register</p>
+              <p className={styles.appSubTitle}>
+                {Translation[localeTransitionIndex].register}
+              </p>
               <Input
                 id="firstName"
                 name="firstName"
                 type="text"
                 className={registerStyles.input}
-                placeholder="First Name"
-                required
-              ></Input>
+                placeholder={Translation[localeTransitionIndex].firstName}
+                required></Input>
               <Input
                 id="email"
                 name="email"
                 type="email"
                 className={registerStyles.input}
                 placeholder="Email"
-                required
-              ></Input>
+                required></Input>
               <Input
                 id="password"
                 name="password"
                 type="password"
                 className={registerStyles.input}
-                placeholder="Password"
-                required
-              ></Input>
+                placeholder={Translation[localeTransitionIndex].password}
+                required></Input>
               <Input
                 id="confirmPassword"
                 name="confirmPassword"
                 type="password"
                 className={registerStyles.input}
-                placeholder="Confirm Password"
-                required
-              ></Input>
+                placeholder={Translation[localeTransitionIndex].confirmPassword}
+                required></Input>
               <Button type="submit" className={styles.button}>
-                Create Account
+                {Translation[localeTransitionIndex].createAccount}
               </Button>
             </Form>
             <section className={styles.buttonsSection}>
               <Button className={styles.button} onClick={handleReturnToHome}>
-                Return to Home
+                {Translation[localeTransitionIndex].returnToHome}
               </Button>
               <Button className={styles.button} onClick={handleGoToLogin}>
-                Go to Login
+                {Translation[localeTransitionIndex].goToLogin}
               </Button>
             </section>
           </div>
