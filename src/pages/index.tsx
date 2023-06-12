@@ -331,6 +331,7 @@ export default function Home() {
                   <ConvertionHistory
                     oneNewConvertionSaved={oneNewConvertionSaved}
                     isLogged={isLogged}
+                    localeTransitionIndex={localeTransitionIndex}
                   />
                 ) : (
                   <p className={styles.pleaseLogin}>

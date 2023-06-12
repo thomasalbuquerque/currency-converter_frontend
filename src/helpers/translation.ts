@@ -4,7 +4,10 @@ type TranslationType = {
     isLogged: string;
     isNotLogged: string;
     saveConversion: string;
+    emptyConvertionHistory: string;
     pleaseLogin: string;
+    convertionHistory: string;
+    deleteConvertionHistory: string
     password: string;
     login: string;
     createAccount: string;
@@ -24,7 +27,10 @@ export const Translation: TranslationType = {
     isLogged: "Logged",
     isNotLogged: "Not Logged",
     saveConversion: "Save Convertion",
+    emptyConvertionHistory: "Empty",
     pleaseLogin: "Please log in to see your Convertion History",
+    convertionHistory: 'Convertion History',
+    deleteConvertionHistory: "Delete Convertion History",
     password: 'Password',
     login: 'Login',
     createAccount: 'Create Account',
@@ -41,7 +47,10 @@ export const Translation: TranslationType = {
     isLogged: "Logado",
     isNotLogged: "Não Logado",
     saveConversion: "Salvar Conversão",
+    emptyConvertionHistory: "Vazio",
     pleaseLogin: "Por favor, faça o login para ver seu Histórico de Conversões",
+    convertionHistory: 'Histórico de Conversões',
+    deleteConvertionHistory: 'Apagar Histórico de Conversões',
     password: 'Senha',
     login: 'Entrar',
     createAccount: 'Criar Conta',

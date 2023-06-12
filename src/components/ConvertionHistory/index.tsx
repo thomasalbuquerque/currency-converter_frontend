@@ -3,13 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'reactstrap';
 import styles from './styles.module.scss';
 import homeStyles from '../../styles/Home.module.scss';
+import { Translation } from '@/helpers/translation';
 interface props {
   isLogged: boolean;
   oneNewConvertionSaved: number;
+  localeTransitionIndex: string;
 }
 export default function ConvertionHistory({
   isLogged,
   oneNewConvertionSaved,
+  localeTransitionIndex,
 }: props) {
   const [convertionList, setConvertionList] = useState<Convertion[]>();
   const [deletedConvertions, setDletedConvertions] = useState(0);
@@ -36,7 +39,7 @@ export default function ConvertionHistory({
     const roundedResult = Math.round((n + Number.EPSILON) * 100) / 100;
     return roundedResult;
   }
-  function formatDate(date: Date) {
+  function formatDate(date: Date, localeTransitionIndex: string) {
     const stringDate = date.toString();
     const year = stringDate.slice(0, 4);
     const month = stringDate.slice(5, 7);
@@ -44,19 +47,29 @@ export default function ConvertionHistory({
     const hours = stringDate.slice(11, 13);
     const minutes = stringDate.slice(14, 16);
 
-    const hoursNumber = parseFloat(hours);
-    let localHours = hoursNumber;
+    const hoursNumber = (parseFloat(hours) - 3 + 24) % 24;
     let amPm: string;
-    if (hoursNumber >= 13) {
-      localHours = hoursNumber - 3;
-      if (localHours === 0) {
-        localHours = 12;
+    let localHours: number;
+    try {
+      if (localeTransitionIndex === 'ptBR') {
+        return `${day}/${month}/${year} às ${hoursNumber}:${minutes}`;
+      } else if (localeTransitionIndex === 'enUS') {
+        if (hoursNumber >= 13) {
+          localHours = hoursNumber - 12;
+          amPm = 'pm';
+        } else {
+          localHours = hoursNumber;
+          amPm = 'am';
+        }
+        return `${month}/${day}/${year} at ${localHours}:${minutes} ${amPm}`;
+      } else {
+        throw new Error('invalid localeTransitionIndex');
       }
-      amPm = 'pm';
-    } else {
-      amPm = 'am';
+    } catch (error) {
+      if (error instanceof Error) {
+        return error.message;
+      }
     }
-    return `${month}/${day}/${year} at ${localHours}:${minutes} ${amPm}`;
   }
   async function handleDelete() {
     const res = await convertionService.deleteConvertions();
@@ -65,15 +78,19 @@ export default function ConvertionHistory({
   return (
     <>
       <div className={styles.list}>
-        <p className={styles.title}>Convertion History</p>
+        <p className={styles.title}>
+          {Translation[localeTransitionIndex].convertionHistory}
+        </p>
         {convertionList?.length === 0 ? (
-          <p className={styles.empty}>Empty Convertion History</p>
+          <p className={styles.empty}>
+            {Translation[localeTransitionIndex].emptyConvertionHistory}
+          </p>
         ) : (
           convertionList?.map((convertion) => (
             <div className={styles.card} key={convertion.createdAt!.toString()}>
               <div className={styles.cardContent}>
                 <div className={styles.date}>
-                  {formatDate(convertion.createdAt!)}
+                  {formatDate(convertion.createdAt!, localeTransitionIndex)}
                 </div>
                 <div className={styles.convertion}>
                   <Row>
@@ -131,7 +148,7 @@ export default function ConvertionHistory({
         ) : (
           <section className={homeStyles.buttonsSection}>
             <Button className={homeStyles.button} onClick={handleDelete}>
-              Delete Convertion History
+              {Translation[localeTransitionIndex].deleteConvertionHistory}
             </Button>
           </section>
         )}
