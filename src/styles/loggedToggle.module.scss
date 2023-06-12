@@ -1,0 +1,31 @@
+@import './colors.module.scss';
+.localeAndLogged {
+  display: flex;
+  justify-content: space-between;
+}
+.loggedToggleStatusDiv {
+  display: flex;
+  justify-content: flex-end;
+}
+.loggedToggleStatus {
+  margin: 0.9rem 0.4rem;
+  padding: 2px 10px;
+  text-align: right;
+  font-weight: 400;
+  color: $mediumGray;
+  font-size: 0.7rem;
+  border: 1px solid $mediumGray;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    color: $lightGray;
+    border-color: $lightGray;
+  }
+}
+@media (max-width: 420px) {
+  .loggedToggleStatus {
+    font-size: 0.6rem;
+    padding: 1px 7px;
+  }
+}
