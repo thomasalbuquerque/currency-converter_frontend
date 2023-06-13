@@ -1,6 +1,7 @@
 type TranslationType = {
   [key: string]: {
     aplicationTitle: string;
+    descriptionMeta: string;
     language: string;
     isLogged: string;
     isNotLogged: string;
@@ -25,6 +26,7 @@ type TranslationType = {
 export const Translation: TranslationType = {
   enUS: {
     aplicationTitle: 'Currency Converter',
+    descriptionMeta: 'This is a currency conversion application that enables users to convert the value of one country\'s currency into another country\'s currency.',
     language: 'English',
     isLogged: "Logged",
     isNotLogged: "Not Logged",
@@ -46,6 +48,7 @@ export const Translation: TranslationType = {
   },
   ptBR: {
     aplicationTitle: 'Conversor de Moedas',
+    descriptionMeta: 'Esta é uma aplicação de conversão de moeda que permite aos usuários converter o valor da moeda de um país para o valor da moeda de outro país.',
     language: 'Português',
     isLogged: "Logado",
     isNotLogged: "Não Logado",
