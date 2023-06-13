@@ -21,6 +21,13 @@ type TranslationType = {
     goToRegister: string;
     goToLogin: string;
     logout: string;
+    successLogin: string;
+    successLogout: string;
+    successStored: string;
+    successRegistered: string;
+    pleaseLoginToast: string;
+    passwordAndConfirmation: string;
+    pleaseInsertValues: string;
   };
 };
 
@@ -46,7 +53,14 @@ export const Translation: TranslationType = {
     returnToHome: 'Return to Home',
     goToRegister: 'Go to Register',
     goToLogin: 'Go to Login',
-    logout: 'Log out'
+    logout: 'Log out',
+    successLogin: 'Successfully Logged In',
+    successLogout: 'Successfully Logged out',
+    successStored: 'Successfully stored',
+    successRegistered: 'Successfully Registered',
+    pleaseLoginToast: 'Please login to be able to save convertions',
+    passwordAndConfirmation: 'Password and confirmation did not match',
+    pleaseInsertValues: 'Please insert values',
   },
   ptBR: {
     aplicationTitle: 'Conversor de Moedas',
@@ -70,5 +84,12 @@ export const Translation: TranslationType = {
     goToRegister: 'Ir para Registro',
     goToLogin: 'Ir para Login',
     logout: 'Deslogar',
+    successLogin: 'Logado com sucesso',
+    successLogout: 'Deslogado com sucesso',
+    successStored: 'Conversão armazenada com sucesso',
+    successRegistered: 'Registrado com sucesso',
+    pleaseLoginToast: 'Por favor faça o login para poder salvar conversões',
+    passwordAndConfirmation: 'Senha e confirmação diferentes',
+    pleaseInsertValues: 'Por favor insira valores',
   }
 }

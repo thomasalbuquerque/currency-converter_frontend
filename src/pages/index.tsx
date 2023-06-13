@@ -72,7 +72,7 @@ export default function Home() {
       setIsLogged(false);
     } else {
       setIsLogged(true);
-      showToast('bg-success', 'Successfully Logged In');
+      showToast('bg-success', Translation[localeTransitionIndex].successLogin);
     }
   }, []);
 
@@ -124,7 +124,7 @@ export default function Home() {
   useEffect(() => {
     const successLogOut = router.query.successLogOut;
     if (successLogOut === 'true') {
-      showToast('bg-success', 'Successfully Logged out');
+      showToast('bg-success', Translation[localeTransitionIndex].successLogout);
     }
   }, [router.query]);
 
@@ -195,7 +195,10 @@ export default function Home() {
 
           const res = await convertionService.saveConvertion(params);
           if (res.status === 201) {
-            showToast('bg-success', 'Successfully stored');
+            showToast(
+              'bg-success',
+              Translation[localeTransitionIndex].successStored
+            );
             setOneNewConvertionSaved(oneNewConvertionSaved + 1);
           } else {
             showToast('bg-danger', res.statusText);
@@ -223,14 +226,20 @@ export default function Home() {
 
           const res = await convertionService.saveConvertion(params);
           if (res.status === 201) {
-            showToast('bg-success', 'Successfully stored');
+            showToast(
+              'bg-success',
+              Translation[localeTransitionIndex].successStored
+            );
             setOneNewConvertionSaved(oneNewConvertionSaved + 1);
           } else {
             showToast('bg-danger', res.statusText);
           }
         }
       } else {
-        showToast('bg-danger', 'Please insert values');
+        showToast(
+          'bg-danger',
+          Translation[localeTransitionIndex].pleaseInsertValues
+        );
       }
     }
   }

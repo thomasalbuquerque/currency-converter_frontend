@@ -37,7 +37,9 @@ export default function Register() {
     const params = { firstName, email, password };
 
     if (password !== confirmPassword) {
-      setToastMessage('Senha e confirmação diferentes.');
+      setToastMessage(
+        Translation[localeTransitionIndex].passwordAndConfirmation
+      );
       setToastIsOpen(true);
       setTimeout(() => {
         setToastIsOpen(false);
