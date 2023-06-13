@@ -21,11 +21,11 @@ export default function Home() {
 
   const [currencyList, setCurrencyList] = useState<Currency[]>();
 
-  const [fromCurrencyIndex, setFromCurrencyIndex] = useState(0);
+  const [fromCurrencyIndex, setFromCurrencyIndex] = useState(25);
   const [fromCurrencyObject, setFromCurrencyObject] = useState<Currency>();
   const [fromAmount, setFromAmount] = useState<number>();
 
-  const [toCurrencyIndex, setToCurrencyIndex] = useState(1);
+  const [toCurrencyIndex, setToCurrencyIndex] = useState(4);
   const [toCurrencyObject, setToCurrencyObject] = useState<Currency>();
   const [toAmount, setToAmount] = useState<number>();
 
