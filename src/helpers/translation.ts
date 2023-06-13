@@ -21,6 +21,7 @@ type TranslationType = {
     goToRegister: string;
     goToLogin: string;
     logout: string;
+    // trigger vercel
   };
 };
 
