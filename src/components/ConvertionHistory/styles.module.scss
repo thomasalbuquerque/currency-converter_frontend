@@ -1,11 +1,12 @@
 @import '../../styles/colors.module.scss';
 .list {
-  width: 20rem;
+  width: 18rem;
 }
 .title {
   text-align: center;
   margin-top: 50px;
   margin-bottom: 15px;
+  font-size: 1.1rem;
 }
 .empty {
   text-align: center;
@@ -26,10 +27,6 @@
   font-size: 14px;
   color: $mediumGray;
 }
-// .convertion {
-//   display: flex;
-//   justify-content: space-between;
-// }
 .arrow {
   display: flex;
   flex-direction: column;
@@ -60,7 +57,14 @@
     flex-direction: column;
     align-items: center;
   }
-  .card {
-    width: 75%;
+}
+@media (max-width: 420px) {
+  .title {
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 320px) {
+  .list {
+    width: fit-content;
   }
 }

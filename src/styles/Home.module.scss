@@ -18,12 +18,15 @@
   box-shadow: 0 30px 40px rgba(0, 0, 0, 0.1);
 }
 .appTitle {
-  margin: 0.8rem 0rem 0rem 1.6rem;
-  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 }
-.appSubTitle {
-  margin: 0rem;
-  font-size: 1.25rem;
+.appTitleSlice1 {
+  font-size: 1.4rem;
+}
+.appTitleSlice2 {
+  font-size: 1.4rem;
 }
 .pageContent {
   display: flex;
@@ -98,6 +101,10 @@
   .container {
     width: 20rem;
   }
+  .appTitle {
+    flex-direction: column;
+    align-items: center;
+  }
   .inputPair {
     margin: 3rem 1rem;
   }
@@ -106,13 +113,12 @@
   .container {
     width: 15rem;
   }
-  .appTitle {
-    margin-left: 0rem;
-    font-size: 1.3rem;
-    text-align: center;
+  .appTitleSlice1 {
+    font-size: 1.1rem;
   }
-  .appSubTitle {
-    font-size: 1rem;
+  .appTitleSlice2 {
+    line-height: 1;
+    font-size: 0.8rem;
   }
   .inputs {
     flex-direction: column;
@@ -136,7 +142,7 @@
     gap: 0.2em;
   }
   .button {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
   .pleaseLogin {
     width: 150px;
@@ -147,5 +153,15 @@
 @media (max-width: 335px) {
   .main {
     padding: 6rem 0rem;
+  }
+  .container {
+    margin-right: 0rem;
+    margin-left: 0rem;
+  }
+}
+@media (min-width: 640px) {
+  .appTitleSlice1::after {
+    content: ' - ';
+    white-space: pre;
   }
 }

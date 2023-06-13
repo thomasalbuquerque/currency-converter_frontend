@@ -1,5 +1,6 @@
 type TranslationType = {
   [key: string]: {
+    aplicationTitle: string;
     language: string;
     isLogged: string;
     isNotLogged: string;
@@ -23,6 +24,7 @@ type TranslationType = {
 
 export const Translation: TranslationType = {
   enUS: {
+    aplicationTitle: 'Currency Converter',
     language: 'English',
     isLogged: "Logged",
     isNotLogged: "Not Logged",
@@ -43,6 +45,7 @@ export const Translation: TranslationType = {
     logout: 'Log out'
   },
   ptBR: {
+    aplicationTitle: 'Conversor de Moedas',
     language: 'Português',
     isLogged: "Logado",
     isNotLogged: "Não Logado",
