@@ -57,7 +57,6 @@ export default function Logout() {
             localeTransitionIndex={localeTransitionIndex}
             logged={true}
           />
-          <p className={styles.appTitle}>Currency Converter</p>
           <div className={styles.pageContent}>
             <section
               className={styles.buttonsSection}

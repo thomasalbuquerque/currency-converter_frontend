@@ -94,7 +94,6 @@ export default function Register() {
             localeTransitionIndex={localeTransitionIndex}
             logged={false}
           />
-          <p className={styles.appTitle}>Currency Converter</p>
           <div className={styles.pageContent}>
             <Form className={registerStyles.form} onSubmit={handleRegister}>
               <p className={styles.appSubTitle}>

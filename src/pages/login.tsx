@@ -99,7 +99,6 @@ export default function Login() {
             localeTransitionIndex={localeTransitionIndex}
             logged={false}
           />
-          <p className={styles.appTitle}>Currency Converter</p>
           <div className={styles.pageContent}>
             <Form className={registerStyles.form} onSubmit={handleLogin}>
               <p className={styles.appSubTitle}>Login</p>
