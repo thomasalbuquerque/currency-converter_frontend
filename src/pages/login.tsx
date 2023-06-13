@@ -35,7 +35,7 @@ export default function Login() {
       setTimeout(() => {
         setToastIsOpen(false);
       }, 1000 * 3);
-      setToastMessage('Successfully Registered');
+      setToastMessage(Translation[localeTransitionIndex].successRegistered);
     }
     const isLogged = router.query.isLogged;
     if (isLogged === 'false') {
@@ -44,7 +44,7 @@ export default function Login() {
       setTimeout(() => {
         setToastIsOpen(false);
       }, 1000 * 3);
-      setToastMessage('Please login to be able to save convertions');
+      setToastMessage(Translation[localeTransitionIndex].pleaseLoginToast);
     }
   }, [router.query]);
 

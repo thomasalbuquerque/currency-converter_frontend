@@ -21,7 +21,6 @@ type TranslationType = {
     goToRegister: string;
     goToLogin: string;
     logout: string;
-    // trigger vercel
   };
 };
 
@@ -47,7 +46,7 @@ export const Translation: TranslationType = {
     returnToHome: 'Return to Home',
     goToRegister: 'Go to Register',
     goToLogin: 'Go to Login',
-    logout: 'Log out'
+    logout: 'Log out',
   },
   ptBR: {
     aplicationTitle: 'Conversor de Moedas',
