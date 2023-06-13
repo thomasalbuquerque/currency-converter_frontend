@@ -5,6 +5,7 @@ type TranslationType = {
     language: string;
     isLogged: string;
     isNotLogged: string;
+    imageInfoDescr: string;
     saveConversion: string;
     emptyConvertionHistory: string;
     pleaseLogin: string;
@@ -30,6 +31,7 @@ export const Translation: TranslationType = {
     language: 'English',
     isLogged: "Logged",
     isNotLogged: "Not Logged",
+    imageInfoDescr: 'You have the option to save your conversions for future reference. To do this, you need to create an account. Simply click on the "Save Conversion" button, and you will be redirected to the registration page.',
     saveConversion: "Save Convertion",
     emptyConvertionHistory: "Empty",
     pleaseLogin: "Please log in to see your Convertion History",
@@ -52,6 +54,7 @@ export const Translation: TranslationType = {
     language: 'Português',
     isLogged: "Logado",
     isNotLogged: "Não Logado",
+    imageInfoDescr: 'Você tem a opção de salvar suas conversões para consulta posterior. Para isso, é necessário criar uma conta. Ao clicar no botão "Salvar Conversão", você será redirecionado para a página de registro.',
     saveConversion: "Salvar Conversão",
     emptyConvertionHistory: "Vazio",
     pleaseLogin: "Por favor, faça o login para ver seu Histórico de Conversões",

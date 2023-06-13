@@ -331,6 +331,17 @@ export default function Home() {
                 </div>
               </section>
               <section className={styles.buttonsSection}>
+                <div
+                  className={styles.imageInfoDiv}
+                  data-descr={
+                    Translation[localeTransitionIndex].imageInfoDescr
+                  }>
+                  <img
+                    src="./info-icon.png"
+                    className={styles.imageInfo}
+                    alt=""
+                  />{' '}
+                </div>
                 <Button
                   className={styles.button}
                   onClick={handleSaveConvertion}>

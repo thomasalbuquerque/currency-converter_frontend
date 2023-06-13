@@ -54,8 +54,31 @@
 }
 .buttonsSection {
   display: flex;
-  gap: 0.875em;
+  flex-direction: column;
+  gap: 0.4rem;
   justify-content: center;
+  align-items: center;
+}
+.imageInfoDiv {
+  position: relative;
+  text-decoration: underline;
+}
+.imageInfoDiv:hover::after {
+  content: attr(data-descr);
+  position: absolute;
+  left: 0;
+  top: 24px;
+  min-width: 200px;
+  border: 1px #aaaaaa solid;
+  border-radius: 5px;
+  background-color: $lightGray;
+  padding: 12px;
+  color: $darkBlue;
+  font-size: 0.8rem;
+  z-index: 1;
+}
+.imageInfo {
+  width: 1rem;
 }
 .button {
   min-width: 10rem;
@@ -92,6 +115,22 @@
   }
   .button {
     min-width: 7rem;
+  }
+}
+@media (max-width: 768px) {
+  .imageInfoDiv:active::after {
+    content: attr(data-descr);
+    position: absolute;
+    left: 0;
+    top: 24px;
+    min-width: 200px;
+    border: 1px #aaaaaa solid;
+    border-radius: 5px;
+    background-color: $lightGray;
+    padding: 12px;
+    color: $darkBlue;
+    font-size: 0.8rem;
+    z-index: 1;
   }
 }
 @media (max-width: 640px) {
@@ -143,6 +182,17 @@
   }
   .button {
     font-size: 0.7rem;
+  }
+  .imageInfoDiv:active::after {
+    font-size: 0.6rem;
+    padding: 8px;
+  }
+  .imageInfoDiv:hover::after {
+    font-size: 0.6rem;
+    padding: 8px;
+  }
+  .imageInfo {
+    width: 0.6rem;
   }
   .pleaseLogin {
     width: 150px;
