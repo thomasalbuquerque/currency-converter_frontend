@@ -28,6 +28,7 @@ type TranslationType = {
     pleaseLoginToast: string;
     passwordAndConfirmation: string;
     pleaseInsertValues: string;
+    // publish branch
   };
 };
 
