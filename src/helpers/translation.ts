@@ -6,6 +6,7 @@ type TranslationType = {
     isLogged: string;
     isNotLogged: string;
     imageInfoDescr: string;
+    imageInfoDescrRegister: string;
     saveConversion: string;
     emptyConvertionHistory: string;
     pleaseLogin: string;
@@ -28,7 +29,6 @@ type TranslationType = {
     pleaseLoginToast: string;
     passwordAndConfirmation: string;
     pleaseInsertValues: string;
-    // publish branch
   };
 };
 
@@ -39,7 +39,8 @@ export const Translation: TranslationType = {
     language: 'English',
     isLogged: "Logged",
     isNotLogged: "Not Logged",
-    imageInfoDescr: 'You have the option to save your conversions for future reference. To do this, you need to create an account. Simply click on the "Save Conversion" button, and you will be redirected to the registration page.',
+    imageInfoDescr: 'You have the option to save your conversions for future reference. To do this, you need to create an account. Simply click on the "Save Conversion" button, and you will be redirected to the registration page if you are not logged.',
+    imageInfoDescrRegister: 'You can use a fictitious email address, such as whateverouwant@email.com, as long as it follows the structure of a typical email, containing at least one character, the "at" symbol, another character, and a dot followed by a domain (like .com).',
     saveConversion: "Save Convertion",
     emptyConvertionHistory: "Empty",
     pleaseLogin: "Please log in to see your Convertion History",
@@ -69,8 +70,9 @@ export const Translation: TranslationType = {
     language: 'Português',
     isLogged: "Logado",
     isNotLogged: "Não Logado",
-    imageInfoDescr: 'Você tem a opção de salvar suas conversões para consulta posterior. Para isso, é necessário criar uma conta. Ao clicar no botão "Salvar Conversão", você será redirecionado para a página de registro.',
+    imageInfoDescr: 'Você tem a opção de salvar suas conversões para consulta posterior. Para isso, é necessário criar uma conta. Ao clicar no botão "Salvar Conversão", você será redirecionado para a página de registro se ainda não estiver logado.',
     saveConversion: "Salvar Conversão",
+    imageInfoDescrRegister: 'Você pode usar um endereço de email fictício, como qualquercoisa@email.com, desde que ele siga a estrutura de um email comum, contendo pelo menos um caractere, o símbolo "arroba", outro caractere e um ponto seguido de um domínio (como .com).',
     emptyConvertionHistory: "Vazio",
     pleaseLogin: "Por favor, faça o login para ver seu Histórico de Conversões",
     convertionHistory: 'Histórico de Conversões',

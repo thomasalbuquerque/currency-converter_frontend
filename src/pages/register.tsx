@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 import authService from '@/services/authService';
 import { Translation } from '@/helpers/translation';
 import ItemsOnTop from '@/components/ItemsOnTop';
+import Image from 'next/image';
+import infoIconImage from '../../public/info-icon.png';
 
 export default function Register() {
   const router = useRouter();
@@ -111,13 +113,28 @@ export default function Register() {
                 className={registerStyles.input}
                 placeholder={Translation[localeTransitionIndex].firstName}
                 required></Input>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                className={registerStyles.input}
-                placeholder="Email"
-                required></Input>
+              <div className={registerStyles.emailInputDiv}>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  className={registerStyles.input}
+                  placeholder="Email"
+                  required></Input>
+                <div
+                  id={registerStyles.imageInfoDivRegister}
+                  className={styles.imageInfoDiv}
+                  data-descr={
+                    Translation[localeTransitionIndex].imageInfoDescrRegister
+                  }>
+                  <Image
+                    id={registerStyles.infoImageRegister}
+                    src={infoIconImage}
+                    className={styles.imageInfo}
+                    alt=""
+                  />{' '}
+                </div>
+              </div>
               <Input
                 id="password"
                 name="password"

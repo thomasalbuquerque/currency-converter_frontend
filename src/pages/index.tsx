@@ -165,7 +165,7 @@ export default function Home() {
     if (!isLogged) {
       // router.push('/login?failed');
       router.push({
-        pathname: '/login',
+        pathname: '/register',
         query: { isLogged: 'false' },
       });
     } else {

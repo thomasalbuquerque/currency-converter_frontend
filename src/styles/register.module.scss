@@ -30,8 +30,26 @@
     border: 2px solid $lightBlue;
   }
 }
+.emailInputDiv {
+  display: flex;
+  align-items: center;
+}
+#infoImageRegister {
+  position: absolute;
+  top: -8px;
+  left: 4px;
+}
+@media (max-width: 880px) {
+  #imageInfoDivRegister:hover::after {
+    left: auto;
+    right: 0;
+  }
+}
 @media (max-width: 420px) {
   .input {
     font-size: 0.8rem;
+  }
+  #infoImageRegister {
+    top: -5px;
   }
 }
