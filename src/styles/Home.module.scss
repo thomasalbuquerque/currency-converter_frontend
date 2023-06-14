@@ -55,9 +55,12 @@
 .buttonsSection {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 1rem;
   justify-content: center;
   align-items: center;
+}
+#saveConversionButton {
+  margin-top: -12px;
 }
 .imageInfoDiv {
   position: relative;
@@ -179,9 +182,6 @@
   .switchImage {
     margin-bottom: 0px;
     margin-left: 80px;
-  }
-  .buttonsSection {
-    gap: 0.2em;
   }
   .button {
     font-size: 0.7rem;

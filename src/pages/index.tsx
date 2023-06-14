@@ -352,6 +352,7 @@ export default function Home() {
                   />{' '}
                 </div>
                 <Button
+                  id={styles.saveConversionButton}
                   className={styles.button}
                   onClick={handleSaveConvertion}>
                   {Translation[localeTransitionIndex].saveConversion}
