@@ -10,6 +10,7 @@ import { Translation } from '@/helpers/translation';
 import ItemsOnTop from '@/components/ItemsOnTop';
 import Image from 'next/image';
 import infoIconImage from '../../public/info-icon.png';
+import GitHubLinks from '@/components/GitHubLinks';
 
 export default function Register() {
   const router = useRouter();
@@ -163,6 +164,7 @@ export default function Register() {
             </section>
           </div>
         </Container>
+        <GitHubLinks />
         <ToastComponent
           color="bg-danger"
           isOpen={toastIsOpen}

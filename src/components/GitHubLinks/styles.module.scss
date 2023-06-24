@@ -1,0 +1,17 @@
+@import '../../styles/colors.module.scss';
+.github {
+  width: 170px;
+  margin-top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .githubLinks {
+    text-decoration: none;
+    color: $mediumGray;
+    font-size: 0.75rem;
+  }
+  .gitHubLogo {
+    width: 18px;
+    height: auto;
+  }
+}

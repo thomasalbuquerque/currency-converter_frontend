@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import authService from '@/services/authService';
 import { Translation } from '@/helpers/translation';
 import ItemsOnTop from '@/components/ItemsOnTop';
+import GitHubLinks from '@/components/GitHubLinks';
 const height = '450px';
 
 export default function Login() {
@@ -133,6 +134,7 @@ export default function Login() {
             </section>
           </div>
         </Container>
+        <GitHubLinks />
         <ToastComponent
           color={toastColor}
           isOpen={toastIsOpen}

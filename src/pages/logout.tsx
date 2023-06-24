@@ -5,6 +5,7 @@ import { Button, Container } from 'reactstrap';
 import styles from '../styles/Home.module.scss';
 import { Translation } from '@/helpers/translation';
 import ItemsOnTop from '@/components/ItemsOnTop';
+import GitHubLinks from '@/components/GitHubLinks';
 
 export default function Logout() {
   const height = '260px';
@@ -73,6 +74,7 @@ export default function Logout() {
             </section>
           </div>
         </Container>
+        <GitHubLinks />
       </main>
     </>
   );

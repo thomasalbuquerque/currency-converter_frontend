@@ -13,6 +13,7 @@ import ConvertionHistory from '@/components/ConvertionHistory';
 import Script from 'next/script';
 import { Translation } from '@/helpers/translation';
 import ItemsOnTop from '@/components/ItemsOnTop';
+import GitHubLinks from '@/components/GitHubLinks';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -373,6 +374,7 @@ export default function Home() {
               </section>
             </div>
           </Container>
+          <GitHubLinks />
           <ToastComponent
             color={toastColor}
             isOpen={toastIsOpen}
