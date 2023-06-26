@@ -59,6 +59,13 @@ export default function Login() {
     const { status } = await authService.login(params);
     if (status === 200) {
       router.push('/');
+    } else if (status === 401) {
+      setToastColor('bg-danger');
+      setToastIsOpen(true);
+      setTimeout(() => {
+        setToastIsOpen(false);
+      }, 1000 * 3);
+      setToastMessage(Translation[localeTransitionIndex].loginFailed);
     }
   };
   const handleReturnToHome = async () => {

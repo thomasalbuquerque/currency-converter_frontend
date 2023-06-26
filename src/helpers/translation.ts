@@ -22,6 +22,7 @@ type TranslationType = {
     goToRegister: string;
     goToLogin: string;
     logout: string;
+    loginFailed: string;
     successLogin: string;
     successLogout: string;
     successStored: string;
@@ -56,6 +57,7 @@ export const Translation: TranslationType = {
     goToRegister: 'Go to Register',
     goToLogin: 'Go to Login',
     logout: 'Log out',
+    loginFailed: 'Login failed, check your email and password',
     successLogin: 'Successfully Logged In',
     successLogout: 'Successfully Logged out',
     successStored: 'Successfully stored',
@@ -87,6 +89,7 @@ export const Translation: TranslationType = {
     goToRegister: 'Ir para Registro',
     goToLogin: 'Ir para Login',
     logout: 'Deslogar',
+    loginFailed: 'Login falhou,verifique seu email e senha',
     successLogin: 'Logado com sucesso',
     successLogout: 'Deslogado com sucesso',
     successStored: 'Conversão armazenada com sucesso',
