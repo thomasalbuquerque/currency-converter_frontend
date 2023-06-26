@@ -4,6 +4,8 @@ This is a Currency Converter frontend repository for an application where users 
 
 Additionally, the application includes a feature that allows users to store their conversions. It has a login system and provides a list of all conversions made by the logged-in user. Each conversion entry includes the currencies, amounts, and the date and time it occurred.
 
+The currency ratios are retrieved from [CurrencyAPI](https://currencyapi.com/). When a user initially accesses the website, these values are stored in the user's browser cache and remain valid for 24 hours from the first access. Therefore, the ratios are not updated each time the user visits the website; instead, they retain the values obtained during the first access within the past 24 hours. This approach is implemented to prevent exceeding the monthly limit of 300 free API calls from CurrencyAPI.
+
 IMPORTANT: To run this application locally, you need to first set up the database and backend, as demonstrated in the backend repository: https://github.com/thomasalbuquerque/currency-converter_backend
 
 Link for the deployed app: https://coincalc-currency-converter.vercel.app/
