@@ -7,13 +7,15 @@ const GitHubLinks = () => {
       <div className={styles.github}>
         <a
           href="https://github.com/thomasalbuquerque/currency-converter_frontend"
-          className={styles.githubLinks}>
+          className={styles.githubLinks}
+          target="_blank">
           Frontend
         </a>
         <img src="./github-mark-gray.png" className={styles.gitHubLogo}></img>
         <a
           href="https://github.com/thomasalbuquerque/currency-converter_backend"
-          className={styles.githubLinks}>
+          className={styles.githubLinks}
+          target="_blank">
           Backend
         </a>
       </div>
