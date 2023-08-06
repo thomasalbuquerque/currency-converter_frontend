@@ -14,6 +14,7 @@ import Script from 'next/script';
 import { Translation } from '@/helpers/translation';
 import ItemsOnTop from '@/components/ItemsOnTop';
 import GitHubLinks from '@/components/GitHubLinks';
+import SpinnerComponent from '@/components/common/spinner';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -264,7 +265,9 @@ export default function Home() {
   if (!currencyList) {
     return (
       <>
-        <h1>Loading</h1>
+        <main className={styles.main}>
+          <SpinnerComponent />
+        </main>
       </>
     );
   } else {
